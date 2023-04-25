@@ -1,0 +1,36 @@
+-- INSERT INTO users(id,
+--                   birth_date,
+--                   firstname,
+--                   lastname,
+--                   position,
+--                   role,
+--                   surname,
+--                   username)
+-- VALUES (1,
+--         '2020-01-01 10:10:10',
+--         'Igor',
+--         'Polunichev',
+--         'SERVICE_ENGINEER',
+--         'ADMIN',
+--         'Alexandrovich',
+--         'polusha');
+-- --
+-- INSERT INTO machine(id, operating_time, serial_number, type, year_of_release)
+-- VALUES (1,
+--         22134,
+--         '20128',
+--         'PR776',
+--         2020);
+--
+-- INSERT INTO company(id, inn, kpp, name_company)
+-- VALUES(1,
+--        '1004001744',
+--        '100401001',
+--        'SEVER_STAL');
+--
+-- DELETE FROM users;
+-- DELETE FROM company;
+-- DELETE FROM machine;
+-- UPDATE machine
+-- set company_id = null
+-- where id = 1;

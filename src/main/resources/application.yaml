@@ -1,0 +1,29 @@
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://localhost:3306/trade_in_technique
+    username: root
+    password: LiEbheRR$6
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+
+  jpa:
+    properties:
+      hibernate:
+
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: validate
+    open-in-view: true
+#        dialect: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    root: info
+    org.springframework.jdbc.core: trace
