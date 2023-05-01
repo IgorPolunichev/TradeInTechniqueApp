@@ -1,9 +1,11 @@
-
+#springdoc:
+#  show-login-endpoint: true
 spring:
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    static-path-pattern: static/**
   datasource:
     url: jdbc:mysql://localhost:3306/trade_in_technique
     username: root
@@ -27,3 +29,5 @@ logging:
   level:
     root: info
     org.springframework.jdbc.core: trace
+
+

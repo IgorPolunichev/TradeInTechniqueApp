@@ -6,6 +6,7 @@ import com.example.tradeintechniqueapp.dto.UserCreateEditDto;
 import com.example.tradeintechniqueapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
@@ -50,11 +51,11 @@ public class UserController {
         return "user/registration";
     }
 
-    @PostMapping
+//    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreateEditDto user) {
-        return "redirect:/users/" + userService.create(user).getId();
-    }
+//    public String create(@ModelAttribute UserCreateEditDto user) {
+//        return "redirect:/users/" + userService.create(user).getId();
+//    }
 
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
@@ -72,4 +73,5 @@ public class UserController {
         }
         return "redirect:/users";
     }
+
 }

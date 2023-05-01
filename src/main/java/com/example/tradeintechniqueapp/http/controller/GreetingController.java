@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.net.http.HttpRequest;
 
 @Controller
-@RequestMapping("api/v1")
+@RequestMapping("/api/v2")
 @SessionAttributes({"user"})
 public class GreetingController {
     @GetMapping(value = "/hello")

@@ -23,4 +23,6 @@ public class UserCreateEditDto {
     Position position;
     String rowPassword;
 
+
+
 }

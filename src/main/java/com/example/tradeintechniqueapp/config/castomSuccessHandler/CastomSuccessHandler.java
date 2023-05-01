@@ -27,6 +27,7 @@ import java.util.Optional;
 public class CastomSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private final String URL_FOR_ADMIN = "/users";
+//    private final String URL_FOR_ADMIN = "/v3/api-docs/";
     private final String URL_FOR_ALL = "/users/%d";
 
     private RequestCache requestCache = new HttpSessionRequestCache();
