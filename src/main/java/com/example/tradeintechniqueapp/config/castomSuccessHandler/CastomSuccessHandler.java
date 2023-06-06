@@ -1,15 +1,12 @@
 package com.example.tradeintechniqueapp.config.castomSuccessHandler;
 
 import com.example.tradeintechniqueapp.database.entity.Role;
-import com.example.tradeintechniqueapp.database.repository.UserRepository;
-import com.example.tradeintechniqueapp.dto.CustomUserDetails;
+import com.example.tradeintechniqueapp.dto.usersDto.CustomUserDetails;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 @Slf4j

@@ -1,12 +1,11 @@
 package com.example.tradeintechniqueapp.integrationTests.repository;
 
-import com.example.tradeintechniqueapp.dto.MachineDto;
-import com.example.tradeintechniqueapp.dto.MachineDto2;
-import com.example.tradeintechniqueapp.dto.MachineFilter;
+import com.example.tradeintechniqueapp.dto.machinesDto.MachineDto;
+import com.example.tradeintechniqueapp.dto.machinesDto.MachineDto2;
+import com.example.tradeintechniqueapp.dto.machinesDto.MachineFilter;
 import com.example.tradeintechniqueapp.database.entity.Company;
 import com.example.tradeintechniqueapp.database.entity.Machine;
-import com.example.tradeintechniqueapp.integrationTests.annotation.IT;
-import com.example.tradeintechniqueapp.database.repository.MachineRepository;
+import com.example.tradeintechniqueapp.database.repository.machineRepo.MachineRepository;
 import com.example.tradeintechniqueapp.integrationTests.service.IntegrationTestBase;
 import com.example.tradeintechniqueapp.service.CompanyService;
 import com.example.tradeintechniqueapp.service.MachineService;

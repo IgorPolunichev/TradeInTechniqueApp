@@ -23,12 +23,11 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeHttpRequests(urlConfig -> urlConfig
                         .requestMatchers("/login"
-                                , "/users/registration"
                                 , "/api/v1/**"
                                 , "/v3/api-docs/**"
                                 , "/swagger-ui/**"
                                 , "/swagger-ui.html").permitAll()
-                        .requestMatchers("/users", "/api/v1/**").hasAuthority(Role.ADMIN.getAuthority())
+                        .requestMatchers("/users", "/api/v1/**", "api/v3/companies/**").hasAuthority(Role.ADMIN.getAuthority())
                         .anyRequest().authenticated())
                 .logout(logout -> logout
                         .logoutUrl("/logout")

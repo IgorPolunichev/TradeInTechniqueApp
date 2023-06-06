@@ -1,21 +1,24 @@
 package com.example.tradeintechniqueapp.service;
 
 import com.example.tradeintechniqueapp.database.entity.User;
-import com.example.tradeintechniqueapp.database.repository.UserRepository;
-import com.example.tradeintechniqueapp.dto.CustomUserDetails;
-import com.example.tradeintechniqueapp.dto.UserCreateEditDto;
-import com.example.tradeintechniqueapp.dto.UserDto;
-import com.example.tradeintechniqueapp.dto.UserReadDto;
-import com.example.tradeintechniqueapp.mapper.UserCreateEditMapper;
-import com.example.tradeintechniqueapp.mapper.UserReadMapper;
+import com.example.tradeintechniqueapp.database.entity.audit.AuditingEntity;
+import com.example.tradeintechniqueapp.database.repository.actRepo.ActUserRepository;
+import com.example.tradeintechniqueapp.database.repository.partRepo.PartRepository;
+import com.example.tradeintechniqueapp.database.repository.userRepo.UserRepository;
+import com.example.tradeintechniqueapp.dto.usersDto.*;
+import com.example.tradeintechniqueapp.mapper.userMappers.UserCreateEditMapper;
+import com.example.tradeintechniqueapp.mapper.userMappers.UserReadForAdminMapper;
+import com.example.tradeintechniqueapp.mapper.userMappers.UserReadMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +31,8 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+    private final UserReadForAdminMapper userReadForAdminMapper;
+    private final ActUserRepository actUserRepository;
 
     public Optional<UserDto> findByUserName(String username) {
         Optional<User> byUserName = userRepository.findByUsername(username);
@@ -41,7 +46,17 @@ public class UserService implements UserDetailsService {
     }
 
     public List<UserReadDto> findAll() {
-        return userRepository.findAll().stream().map(userReadMapper::map).collect(Collectors.toList());
+        List<? extends AuditingEntity<Long>> list = userRepository.findAll();
+        System.out.println(list.get(0).getCreatedAt());
+        return userRepository.findAll()
+                .stream()
+                .map(userReadMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public Page<UserReadDtoForAdmin> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(userReadForAdminMapper::map);
     }
 
     public Optional<UserReadDto> findById(Long id) {
@@ -79,9 +94,9 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).map(user ->
-                        new CustomUserDetails(user.getId(),user.getCounterActs(), user.getUsername(),
-                user.getPassword(),
-                Collections.singleton(user.getRole()))).
+                        new CustomUserDetails(user.getId(), user.getCounterActs(), user.getUsername(),
+                                user.getPassword(),
+                                Collections.singleton(user.getRole()))).
                 orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user:" + username));
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.envers.repository.config.EnableEnversRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,7 +20,6 @@ public class AuditConfiguration {
 
     @Bean
     public AuditorAware<String> auditorAware(){
-
         return ()-> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication()
                 ).map(authentication -> (UserDetails) authentication.getPrincipal())
                 .map(UserDetails::getUsername);

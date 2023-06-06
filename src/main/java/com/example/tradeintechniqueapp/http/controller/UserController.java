@@ -2,11 +2,10 @@ package com.example.tradeintechniqueapp.http.controller;
 
 import com.example.tradeintechniqueapp.database.entity.Position;
 import com.example.tradeintechniqueapp.database.entity.Role;
-import com.example.tradeintechniqueapp.dto.UserCreateEditDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserCreateEditDto;
 import com.example.tradeintechniqueapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
@@ -24,9 +23,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping()
-    public String findAll(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String findAllUsers(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         model.addAttribute("users", userService.findAll());
         return "user/users";
+    }
+    @GetMapping("/listMachines")
+    public String findAllMachines() {
+        return "user/machines";
+    }
+    @GetMapping("/listCompanies")
+    public String findAllCompanies() {
+        return "user/companies";
     }
 
     @GetMapping("/{id}")
@@ -58,12 +65,12 @@ public class UserController {
 //    }
 
     //    @PutMapping("/{id}")
-    @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto user) {
-        return userService.update(id, user)
-                .map(it -> "redirect:/users/{id}")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+//    @PostMapping("/{id}/update")
+//    public String update(@PathVariable("id") Long id, @ModelAttribute UserCreateEditDto user) {
+//        return userService.update(id, user)
+//                .map(it -> "redirect:/users/{id}")
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+//    }
 
     //    @DeleteMapping("/{id}")
     @PostMapping("/{id}/delete")

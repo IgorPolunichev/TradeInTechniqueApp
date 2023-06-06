@@ -1,7 +1,7 @@
 package com.example.tradeintechniqueapp.integrationTests.service;
 
 import com.example.tradeintechniqueapp.integrationTests.annotation.IT;
-import com.example.tradeintechniqueapp.database.repository.CompanyRepository;
+import com.example.tradeintechniqueapp.database.repository.companyRepo.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 
 @IT

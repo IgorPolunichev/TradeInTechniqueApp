@@ -1,5 +1,8 @@
-#springdoc:
-#  show-login-endpoint: true
+springdoc:
+  show-login-endpoint: true
+  swagger-ui:
+    oauth:
+      use-basic-authentication-with-access-code-grant: true
 spring:
   mvc:
     view:

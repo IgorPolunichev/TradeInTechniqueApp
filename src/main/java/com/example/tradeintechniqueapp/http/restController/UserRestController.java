@@ -2,18 +2,20 @@ package com.example.tradeintechniqueapp.http.restController;
 
 import com.example.tradeintechniqueapp.database.entity.Position;
 import com.example.tradeintechniqueapp.database.entity.Role;
-import com.example.tradeintechniqueapp.database.repository.UserRepository;
-import com.example.tradeintechniqueapp.dto.UserCreateEditDto;
-import com.example.tradeintechniqueapp.dto.UserReadDto;
-import com.example.tradeintechniqueapp.mapper.UserCreateEditMapper;
-import com.example.tradeintechniqueapp.mapper.UserReadMapper;
+import com.example.tradeintechniqueapp.dto.usersDto.UserCreateEditDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserReadDtoForAdmin;
 import com.example.tradeintechniqueapp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +33,11 @@ public class UserRestController {
 
     }
 
+    @GetMapping(value = "/users")
+    public Page<UserReadDtoForAdmin> getUsers(@PageableDefault(size = 20) Pageable pageable) {
+        return userService.findAll(pageable);
+
+    }
     @GetMapping(value = "/positions")
     public List<Position> getPosition() {
         return List.of(Position.values());
@@ -43,4 +50,18 @@ public class UserRestController {
         return userService.create(user);
 
     }
+
+    @PutMapping("/{id}")
+    public Optional<UserReadDto>  update(@RequestBody UserCreateEditDto user , @PathVariable Long id) {
+        return userService.update(id, user);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean delete( @PathVariable Long id) {
+        return userService.delete(id);
+
+    }
+
+
 }

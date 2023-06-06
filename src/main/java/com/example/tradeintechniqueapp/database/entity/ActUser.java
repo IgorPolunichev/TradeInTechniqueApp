@@ -1,6 +1,5 @@
 package com.example.tradeintechniqueapp.database.entity;
 
-import com.example.tradeintechniqueapp.dto.CustomUserDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

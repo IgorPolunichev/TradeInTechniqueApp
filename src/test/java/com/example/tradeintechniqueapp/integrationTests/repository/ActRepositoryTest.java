@@ -1,16 +1,15 @@
 package com.example.tradeintechniqueapp.integrationTests.repository;
 
 import com.example.tradeintechniqueapp.database.entity.*;
-import com.example.tradeintechniqueapp.database.repository.ActRepository;
-import com.example.tradeintechniqueapp.database.repository.ActUserRepository;
-import com.example.tradeintechniqueapp.database.repository.CompanyRepository;
-import com.example.tradeintechniqueapp.database.repository.UserRepository;
+import com.example.tradeintechniqueapp.database.repository.actRepo.ActRepository;
+import com.example.tradeintechniqueapp.database.repository.actRepo.ActUserRepository;
+import com.example.tradeintechniqueapp.database.repository.companyRepo.CompanyRepository;
+import com.example.tradeintechniqueapp.database.repository.userRepo.UserRepository;
 import com.example.tradeintechniqueapp.integrationTests.service.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.TransactionManager;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

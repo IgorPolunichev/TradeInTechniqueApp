@@ -1,13 +1,10 @@
 package com.example.tradeintechniqueapp.http.controller;
 
-import com.example.tradeintechniqueapp.dto.UserReadDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.net.http.HttpRequest;
 
 @Controller
 @RequestMapping("/api/v2")
