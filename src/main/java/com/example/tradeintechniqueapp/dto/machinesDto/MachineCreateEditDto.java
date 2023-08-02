@@ -7,6 +7,7 @@ import java.time.Year;
 
 @Value
 public class MachineCreateEditDto {
+    Long id;
     String type;
     String serialNumber;
     int operatingTime;

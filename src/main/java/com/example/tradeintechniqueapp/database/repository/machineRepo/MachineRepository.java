@@ -35,8 +35,10 @@ public interface MachineRepository extends JpaRepository<Machine, Long>,
             nativeQuery = true)
     List<MachineDto2> findAllByCompanyId(Long id);
 
-    @EntityGraph(attributePaths = {"company"})
-    Page<Machine> findAll(Example example, Pageable pageable);
+    Optional<Machine> findByIdOrderByCompany(Long id);
+
+//    @EntityGraph(attributePaths = {"company"})
+//    Page<Machine> findAll(Example example, Pageable pageable);
 
 
 }

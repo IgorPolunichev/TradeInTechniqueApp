@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:fragment="editMachine">
-    <div class="modal fade" id="editMachine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modal-lg" id="editMachine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -18,20 +18,23 @@
                 <div class="modal-body">
 
                     <label for="editMachine-operatingTime" class="form-label">Operating time:
-                        <input id="editMachine-operatingTime" type="text" name="type" class="form-control"></label><br>
+                        <input id="editMachine-operatingTime" type="text" name="operatingTime" class="form-control"></label><br>
 
                     <label for="editMachine-serialNumber" class="form-label">Serial number:
                         <input id="editMachine-serialNumber" type="text" name="serialNumber"
                                class="form-control"></label><br>
 
                     <label for="editMachine-type" class="form-label">Type:
-                        <input id="editMachine-type" type="text" name="operatingTime"
+                        <input id="editMachine-type" type="text" name="type"
                                class="form-control"></label><br>
 
                     <label for="editMachine-yearOfRelease" class="form-label">Year of release:
                         <input id="editMachine-yearOfRelease" type="text" name="yearOfRelease"
                                class="form-control"></label><br>
 
+                    <label for="editMachine-machineOwner" class="form-label">Owner:
+                        <input id="editMachine-machineOwner" type="text" name="owner"
+                               class="form-control" disabled></label><br>
 
 
                     <div class="input-group mb-3">
@@ -41,14 +44,37 @@
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
                         </button>
-                        <input id="search-button-val-companiesEditMachine" type="text" class="form-control" placeholder=""
+                        <input id="search-button-val-companiesEditMachine" type="text" class="form-control"
+                               placeholder=""
                                aria-describedby="search-button">
+                    </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name company</th>
+                                <th scope="col">INN</th>
+                                <th scope="col">KPP</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Street</th>
+                                <th scope="col">House</th>
+                            </tr>
+                            </thead>
+                            <tbody id="body-companiesForEditMachine-table">
+                            </tbody>
+                        </table>
+                        <nav aria-label="...">
+                            <ul id="count-pages-for-body-companiesForEditMachine-table" class="pagination pagination-sm">
+                            </ul>
+                        </nav>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="editUser-update" type="button" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
+                    <button id="editMachine-update" type="button" class="btn btn-primary" data-bs-dismiss="modal">Update
+                    </button>
                 </div>
             </div>
         </div>
@@ -63,5 +89,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="/static/js/button/forUsers.js" th:src="@{../../static/js/button/forUsers.js}"
         type="text/javascript"></script>
+<!--<script src="/static/js/button/forMachines.js" th:src="@{../../static/js/button/forMachines.js}"-->
+<!--        type="text/javascript"></script>-->
 </body>
 </html>

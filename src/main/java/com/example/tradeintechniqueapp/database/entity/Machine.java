@@ -22,7 +22,7 @@ public class Machine extends AuditingEntity<Long> {
     private Long id;
     private String type;
     private String serialNumber;
-    private int operatingTime;
+    private Integer operatingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")

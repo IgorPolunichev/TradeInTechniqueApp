@@ -145,7 +145,7 @@ function createUsersTable(allUsers) {
             "<td>" +
             "<button onclick='editUser(" + value.id + ")' type='button' class='btn btn-success'>Edit</button>" +
             "</td>" +
-            "<td><button onclick='deleteUser(" + value.id + ")' type='button' class='btn btn-danger' id='delete-user-" + value.id + "'>Delete</button></td>" +
+            "<td><button onclick='deleteUser(" + value.id + ")' type='button' class='btn btn-danger'>Delete</button></td>" +
             "</tr>"
         )
     })

@@ -4,13 +4,15 @@ let defaultSizePageMachineList = 5;
 let defaultPageNumberMachineList = 0;
 let machineFilter = 0;
 let pageNumberNow = 0;
+let machineIdForUpdate = 0;
+let company = 0;
 $(document).ready(async function () {
     $('#search-button-machinesList').click(async function () {
 
         machineFilter = $('#search-button-val-machinesList').val()
         await getAllMachines(getURLForMachinesList(machineFilter, defaultPageNumberMachineList, defaultSizePageMachineList))
-
         createMachineTable(machinesList)
+
         let i = 1
         const countPagesForMachinesList = $('#count-pages-forMachinesList')
         countPagesForMachinesList.empty()
@@ -22,10 +24,86 @@ $(document).ready(async function () {
             i++;
         }
         $('#count-pages-forMachinesList a').click(async function () {
-            await getAllMachines(getURLForMachinesList(machineFilter, this.id - 1, defaultSizePage))
-
+            console.log('tet')
+            await getAllMachines(getURLForMachinesList(machineFilter, this.id - 1, defaultSizePageMachineList))
             createMachineTable(machinesList)
         })
+
+    })
+
+    $('#count-pages-forMachinesList a').click(async function () {
+        await getAllMachines(getURLForMachinesList(machineFilter, this.id - 1, defaultSizePage))
+
+        createMachineTable(machinesList)
+    })
+
+    $('#search-button-companiesEditMachine').click(async function () {
+        const nameCompany = $('#search-button-val-companiesEditMachine').val()
+        const nameBodyTable = 'body-companiesForEditMachine-table'
+        await setCompanies(getURLForAddMachine(nameCompany, defaultPageNumber, defaultSizePage))
+        createCompaniesTable(nameBodyTable, companies)
+
+        let countPagesForCompaniesTable = $('#count-pages-for-' + nameBodyTable)
+        let i = 1
+        countPagesForCompaniesTable.empty()
+        while (i <= totalPages) {
+            countPagesForCompaniesTable.append("<li class='page-item'><a id='" + i + "'class='page-link' href='#'>" +
+                i +
+                "</a></li>")
+            i++;
+        }
+
+        $('#count-pages-for-body-companiesForEditMachine-table a').click(async function () {
+            console.log('tet')
+            await setCompanies(getURLForAddMachine(nameCompany, this.id - 1, defaultSizePage))
+            const nameBodyTable = 'body-companiesForEditMachine-table'
+            createCompaniesTable(nameBodyTable, companies)
+        })
+    })
+
+    $('#editMachine-update').click(async function () {
+        let id = machineIdForUpdate
+        let type = $('#editMachine-type').val()
+        let serialNumber = $('#editMachine-serialNumber').val()
+        let operatingTime = $('#editMachine-operatingTime').val()
+        let idCompany;
+        if ($('#companyRadio').is(':checked')) {
+            idCompany = $('#companyRadio:checked').val()
+        } else {
+            idCompany = company
+        }
+
+        // if($('#companyRadio').checked){
+        //     idCompany = company
+        //     console.log('test_1')
+        // }else{
+        //     idCompany = $('#companyRadio:checked').val()
+        //     console.log('test_2')
+        // }
+        let yearOfRelease = $('#editMachine-yearOfRelease').val()
+        const updateMachineURL = 'http://localhost:8080/api/v2/machines'
+
+        const data = JSON.stringify({
+            id: id
+            , type: type
+            , serialNumber: serialNumber
+            , operatingTime: operatingTime
+            , yearOfRelease: yearOfRelease
+            , companyId: idCompany
+        });
+        await fetch(updateMachineURL, {
+            method: 'PUT',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            },
+            body: data
+        });
+
+        await getAllMachines(getURLForMachinesList(machineFilter, defaultPageNumberMachineList, defaultSizePageMachineList))
+        formTable.empty()
+        createMachineTable(machinesList)
+
+
     })
 
 });
@@ -69,7 +147,6 @@ function createMachineTable(allMachines) {
     )
 
     $.each(allMachines, function (index, value) {
-
         $('#machines-table').append(
             "<tr>" +
             "<th scope='row'>" + value.id + "</th>" +
@@ -79,15 +156,28 @@ function createMachineTable(allMachines) {
             "<td>" + value.yearOfRelease + "</td>" +
             "<td>" + value.companyName + "</td>" +
             "<td>" +
-            "<button onclick='editMachine(" + value.id + ",pageNumberNow)' type='button' class='btn btn-success'>Edit</button>" +
+            "<button onclick='editMachine(" + value.id + ")' type='button' class='btn btn-success' data-bs-target='#editMachine'>Edit</button>" +
             "</td>" +
-            "<td><button onclick='deleteMachine(" + value.id + ")' type='button' class='btn btn-danger' id='delete-user-" + value.id + "'>Delete</button></td>" +
+            "<td><button onclick='deleteMachine(" + value.id + ")' type='button' class='btn btn-danger'>Delete</button></td>" +
             "</tr>"
         )
     })
 };
 
 function editMachine(id) {
+    $('#editMachine').modal('show')
+    $('#body-companiesForEditMachine-table').empty()
+    $.each(machinesList, function (index, value) {
+        if (value.id === id) {
+            machineIdForUpdate = id
+            company = value.id
+            $('#editMachine-operatingTime').val(value.operatingTime)
+            $('#editMachine-serialNumber').val(value.serialNumber)
+            $('#editMachine-type').val(value.type)
+            $('#editMachine-yearOfRelease').val(value.yearOfRelease)
+            $('#editMachine-machineOwner').val(value.companyName)
+        }
+    })
 
 }
 

@@ -21,6 +21,7 @@ public class MachineCreateEditMapper implements Mapper<MachineCreateEditDto, Mac
     }
 
     private void copy(MachineCreateEditDto from, Machine to) {
+        to.setId(from.getId());
         to.setCompany(Company.builder()
                 .id(from.getCompanyId())
                 .build());

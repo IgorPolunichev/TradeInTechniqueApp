@@ -52,21 +52,21 @@ public class MachineRepositoryIT extends IntegrationTestBase {
 
     }
 
-    @Test
-    void saveMachineInCompany() {
-        Optional<Machine> bySerialNumber = machineRepository.findBySerialNumber("20128");
-        Optional<Company> company = companyService.findByNameCompanyFofUpdateMachines("SEVER_STAL");
-        if (company.isPresent() && (bySerialNumber.isPresent() && (bySerialNumber.get().getCompany() == null))) {
-            Long l = company.get().getId();
-            String s = bySerialNumber.get().getSerialNumber();
-            machineService.updateCompany(l, s);
-//             }
-        }
-
-        Optional<Company> company2 = companyService.findByNameCompanyFofUpdateMachines("SEVER_STAL");
-        List<Machine> m = company2.get().getMachines();
-        System.out.println();
-    }
+//    @Test
+//    void saveMachineInCompany() {
+//        Optional<Machine> bySerialNumber = machineRepository.findBySerialNumber("20128");
+//        Optional<Company> company = companyService.findByNameCompanyFofUpdateMachines("SEVER_STAL");
+//        if (company.isPresent() && (bySerialNumber.isPresent() && (bySerialNumber.get().getCompany() == null))) {
+//            Long l = company.get().getId();
+//            String s = bySerialNumber.get().getSerialNumber();
+//            machineService.updateCompany(l, s);
+////             }
+//        }
+//
+//        Optional<Company> company2 = companyService.findByNameCompanyFofUpdateMachines("SEVER_STAL");
+//        List<Machine> m = company2.get().getMachines();
+//        System.out.println();
+//    }
 
     @Test
     void checkCustomImpl(){

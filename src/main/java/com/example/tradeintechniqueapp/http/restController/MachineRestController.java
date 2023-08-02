@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +29,12 @@ public class MachineRestController {
     public MachineReadDto create(@RequestBody MachineCreateEditDto machine){
         return machineService.create(machine);
     }
+
+    @PutMapping()
+    public Optional<MachineReadDto> update(@RequestBody MachineCreateEditDto machine){
+        return  machineService.update(machine.getId(), machine);
+    }
+
     @DeleteMapping("/{id}")
     public boolean deleteMachine(@PathVariable Long id){
         return machineService.delete(id);

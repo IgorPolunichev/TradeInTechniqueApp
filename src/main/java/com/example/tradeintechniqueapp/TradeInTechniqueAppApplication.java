@@ -11,7 +11,7 @@ public class TradeInTechniqueAppApplication {
 
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(TradeInTechniqueAppApplication.class, args);
+		SpringApplication.run(TradeInTechniqueAppApplication.class, args);
 
 	}
 

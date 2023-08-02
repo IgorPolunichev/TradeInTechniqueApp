@@ -1,7 +1,7 @@
 
 const uriListMachines = '/users/listMachines';
 const uriListUsers = '/users';
-const uriListCompanies = '/users/companies';
+const uriListCompanies = '/users/listCompanies';
 $(document).ready(function (){
     $('#getListMachines').attr('href', uriListMachines)
     $('#getListUsers').attr('href', uriListUsers)

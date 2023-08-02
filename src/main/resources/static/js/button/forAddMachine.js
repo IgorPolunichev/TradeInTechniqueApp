@@ -2,7 +2,6 @@ let defaultSizePage = 5;
 let defaultPageNumber = 0;
 let totalPages = 0;
 let companies = 0
-const countPages = $('#count-pages-forAddMachineForm')
 $(document).ready(async function () {
 
 // Получение компаний с фильтром
@@ -11,33 +10,32 @@ $(document).ready(async function () {
         const nameCompany = $('#search-button-val-companiesAddMachine').val()
         const url = getURLForAddMachine(nameCompany, defaultPageNumber, defaultSizePage)
         await setCompanies(url)
-        createCompaniesTable(companies);
-
+        const nameBodyTable = 'body-companies-table'
+        createCompaniesTable(nameBodyTable, companies);
+        let countPagesForCompaniesTable = $('#count-pages-for-' + nameBodyTable)
         let i = 1
-        countPages.empty()
+        countPagesForCompaniesTable.empty()
         while (i <= totalPages) {
-            countPages.append("<li class='page-item'><a id='" + i + "'class='page-link' href='#'>" +
+            countPagesForCompaniesTable.append("<li class='page-item'><a id='" + i + "'class='page-link' href='#'>" +
                 i +
                 "</a></li>")
             i++;
         }
 
-        $('#count-pages-forAddMachineForm a').click(async function () {
+        $('#count-pages-for-body-companies-table a').click(async function () {
+            console.log('tet')
             await setCompanies(getURLForAddMachine(nameCompany, this.id - 1, defaultSizePage))
-            createCompaniesTable(companies)
+            const nameBodyTable = 'body-companies-table'
+            createCompaniesTable(nameBodyTable, companies)
         })
-
-
-    });
-
-
+    })
 // Кнопка сохранения машины
     $('#buttonSaveMachine').click(async function () {
-        const idCompany = $('#companyRadio:checked').val()
-        const type = $('#type').val()
-        const serialNumber = $('#serialNumber').val()
-        const operatingTime = $('#operatingTime').val()
-        const yearOfRelease = $('#yearOfRelease').val()
+        let idCompany = $('#companyRadio:checked').val()
+        let type = $('#type').val()
+        let serialNumber = $('#serialNumber').val()
+        let operatingTime = $('#operatingTime').val()
+        let yearOfRelease = $('#yearOfRelease').val()
         const createMachineURL = 'http://localhost:8080/api/v2/machines'
 
         const data = JSON.stringify({
@@ -47,7 +45,7 @@ $(document).ready(async function () {
             , yearOfRelease: yearOfRelease
             , companyId: idCompany
         });
-        const createMachine = await fetch(createMachineURL, {
+        await fetch(createMachineURL, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=utf-8'
@@ -78,15 +76,15 @@ function getURLForAddMachine(nameCompany, defaultPageNumber, defaultSizePage) {
 async function setCompanies(url) {
     const listCompany = await (await fetch(url)).json()
     companies = listCompany.content
+    console.log(companies)
     totalPages = listCompany.totalPages
     console.log(listCompany)
 }
 
-function createCompaniesTable(companies) {
-    console.log(companies)
-    $('#body-companies-table').empty();
+function createCompaniesTable(nameBodyTable, companies) {
+    $('#' + nameBodyTable).empty();
     $.each(companies, function (index, value) {
-        $('#body-companies-table').append(
+        $('#' + nameBodyTable).append(
             "<tr>" +
             "<th scope='row'>" +
             "<input class='form-check-input' type='radio' name='companyRadio' id='companyRadio' value='" +
@@ -101,5 +99,7 @@ function createCompaniesTable(companies) {
             "</tr>"
         );
     });
+
+
 };
 
