@@ -15,7 +15,8 @@ public class MachineReadMapper implements Mapper<Machine, MachineReadDto> {
                 , object.getSerialNumber()
                 , object.getOperatingTime()
                 , object.getYearOfRelease()
-        ,object.getCompany().getNameCompany());
+        ,object.getCompany().getNameCompany()
+        ,object.getCompany().getId());
     }
 
     @Override

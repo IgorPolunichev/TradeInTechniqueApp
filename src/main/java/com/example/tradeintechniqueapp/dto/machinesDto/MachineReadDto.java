@@ -13,4 +13,5 @@ public class MachineReadDto {
     Year yearOfRelease;
 
     String companyName;
+    Long companyId;
 }

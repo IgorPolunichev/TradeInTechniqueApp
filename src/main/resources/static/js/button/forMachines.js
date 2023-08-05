@@ -67,19 +67,12 @@ $(document).ready(async function () {
         let serialNumber = $('#editMachine-serialNumber').val()
         let operatingTime = $('#editMachine-operatingTime').val()
         let idCompany;
-        if ($('#companyRadio').is(':checked')) {
+        if ($('input[name="companyRadio"]').is(':checked')) {
             idCompany = $('#companyRadio:checked').val()
-        } else {
+            console.log(idCompany)
+        }else {
             idCompany = company
         }
-
-        // if($('#companyRadio').checked){
-        //     idCompany = company
-        //     console.log('test_1')
-        // }else{
-        //     idCompany = $('#companyRadio:checked').val()
-        //     console.log('test_2')
-        // }
         let yearOfRelease = $('#editMachine-yearOfRelease').val()
         const updateMachineURL = 'http://localhost:8080/api/v2/machines'
 
@@ -170,7 +163,9 @@ function editMachine(id) {
     $.each(machinesList, function (index, value) {
         if (value.id === id) {
             machineIdForUpdate = id
-            company = value.id
+            company = value.companyId
+            console.log(company)
+
             $('#editMachine-operatingTime').val(value.operatingTime)
             $('#editMachine-serialNumber').val(value.serialNumber)
             $('#editMachine-type').val(value.type)
@@ -188,8 +183,6 @@ async function deleteMachine(id, pageNumber) {
             'Content-type': 'application/json; charset=utf-8'
         }
     })
-
-
     await getAllMachines(getURLForMachinesList(machineFilter, pageNumber, defaultSizePage))
     formTable.empty()
     createMachineTable(machinesList)

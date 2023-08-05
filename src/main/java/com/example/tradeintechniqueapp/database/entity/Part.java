@@ -18,10 +18,7 @@ public class Part implements BaseEntity<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Builder.Default
-    @ElementCollection
-    @CollectionTable
-    private List<String> identNumber = new ArrayList<>();
+    private String identNumber;
     private String name;
 
 

@@ -35,4 +35,15 @@ public class CompanyRestController {
     public CompanyReadDto createCompany(@RequestBody CompanyCreateEditDto company){
         return companyService.create(company);
     }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean delete(@PathVariable Long id){
+        return companyService.delete(id);
+    }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.NOT_MODIFIED)
+    public Optional<CompanyReadDto> update(@RequestBody CompanyCreateEditDto company){
+        return companyService.update(company);
+    }
 }

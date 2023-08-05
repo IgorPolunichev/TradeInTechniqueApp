@@ -13,12 +13,15 @@ import java.util.Optional;
 public interface CompanyRepository extends JpaRepository<Company, Long>,FilterCompanyRepository {
 
     Optional<Company> findByNameCompany(String nameCompany);
-
-
-
     @EntityGraph(attributePaths = {"machines"})
     @Query(value = "select c from Company c where c.nameCompany = :nameCompany")
     Optional<Company> findByNameCompanyWithMachines(String nameCompany);
+
+    @EntityGraph(attributePaths = {"locationCompany", "machines"})
+    @Query(value = "select c from Company c where c.id = :id")
+    Optional<Company> findByIdWithLocationCompany(Long id);
+
+
 
 
 

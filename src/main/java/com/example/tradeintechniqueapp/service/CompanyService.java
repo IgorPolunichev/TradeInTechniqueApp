@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,5 +62,18 @@ public class CompanyService {
 
     }
 
-
+@Transactional
+    public boolean delete(Long id) {
+        return companyRepository.findById(id).map(entity -> {
+            companyRepository.delete(entity);
+            return true;
+        }).orElse(false);
+    }
+@Transactional
+    public Optional<CompanyReadDto> update(CompanyCreateEditDto company) {
+        return companyRepository.findByIdWithLocationCompany(company.getId())
+                .map(entity -> companyCreateEditMapper.map(company,entity))
+                .map(companyRepository::saveAndFlush)
+                .map(companyReadMapper::map);
+    }
 }

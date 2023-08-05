@@ -58,7 +58,6 @@ $(document).ready(async function () {
         $('#operatingTime').val('')
         $('#yearOfRelease').val('')
         formTable.empty()
-        countPages.empty()
         await getAllMachines(getURLForMachinesList(machineFilter, defaultPageNumberMachineList, defaultSizePageMachineList))
         createMachineTable(machinesList)
     });

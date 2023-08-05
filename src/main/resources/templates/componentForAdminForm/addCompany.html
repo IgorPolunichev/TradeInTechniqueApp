@@ -12,10 +12,11 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCompanyModal">
             Add company
         </button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCompanyModal">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editCompanyModal"
+                id="edit-company-companiesList">
             Edit company
         </button>
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" id="delete-company-companiesList">
             Delete
         </button>
     </div>
@@ -62,6 +63,49 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editCompanyModal" tabindex="-1" aria-labelledby="addCompanyModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCompanyModalLabel">Update company</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="nameCompany" class="form-label">Name company:
+                        <input id="nameCompany-editCompanyModal" type="text" name="nameCompany"
+                               class="form-control"></label><br>
+
+                    <label for="inn" class="form-label">INN:
+                        <input id="inn-editCompanyModal" type="text" name="inn" class="form-control"></label><br>
+
+                    <label for="kpp" class="form-label">KPP:
+                        <input id="kpp-editCompanyModal" type="text" name="kpp" class="form-control"></label><br>
+
+                    <legend>Location</legend>
+
+                    <label for="city" class="form-label">City:
+                        <input id="city-editCompanyModal" type="text" name="city" class="form-control"></label><br>
+
+                    <label for="street" class="form-label">Street:
+                        <input id="street-editCompanyModal" type="text" name="street" class="form-control"></label><br>
+
+                    <label for="house" class="form-label">House:
+                        <input id="house-editCompanyModal" type="text" name="house" class="form-control"></label><br>
+
+                    <label for="zipCode" class="form-label">Zip code:
+                        <input id="zipCode-editCompanyModal" type="text" name="zipCode"
+                               class="form-control"></label><br>
+                </div>
+                <div class="modal-footer">
+                    <button id="buttonUpdateCompany" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        Update
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 
@@ -70,6 +114,5 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="/js/button/forAddCompany.js" th:src="@{/js/button/forAddCompany.js}" type="text/javascript"></script>
 </body>
 </html>
