@@ -1,4 +1,4 @@
 package com.example.tradeintechniqueapp.dto.PartsDto;
 
-public record PartDto(Long id, String identNumber) {
+public record PartDto(Long id, String identNumber, String name) {
 }

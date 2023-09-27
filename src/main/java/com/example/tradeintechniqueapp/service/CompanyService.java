@@ -1,7 +1,9 @@
 package com.example.tradeintechniqueapp.service;
 
 import com.example.tradeintechniqueapp.database.entity.Company;
+import com.example.tradeintechniqueapp.database.entity.LocationCompany;
 import com.example.tradeintechniqueapp.database.repository.companyRepo.CompanyRepository;
+import com.example.tradeintechniqueapp.database.repository.localCompanyRepo.LocalCompanyRepo;
 import com.example.tradeintechniqueapp.dto.companiesDto.CompanyCreateEditDto;
 import com.example.tradeintechniqueapp.dto.companiesDto.CompanyDto;
 import com.example.tradeintechniqueapp.dto.companiesDto.CompanyFilter;
@@ -26,11 +28,26 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final CompanyCreateEditMapper companyCreateEditMapper;
     private final CompanyReadMapper companyReadMapper;
+    private final LocalCompanyRepo localCompanyRepo;
 
 
     @Transactional
     public CompanyReadDto create(CompanyCreateEditDto company) {
         return Optional.of(company)
+                .map(entity -> {
+                    Optional<LocationCompany> byCityAndStreetAndHouseAndZipCode = localCompanyRepo
+                            .findByCityAndStreetAndHouseAndZipCode(entity.getLocationCompany().getCity()
+                                    ,entity.getLocationCompany().getStreet()
+                            ,entity.getLocationCompany().getHouse()
+                            ,entity.getLocationCompany().getZipCode());
+                    if (byCityAndStreetAndHouseAndZipCode.isPresent()){
+                        entity.getLocationCompany().setId(byCityAndStreetAndHouseAndZipCode.get().getId());
+                    } else {
+                        LocationCompany save = localCompanyRepo.save(company.getLocationCompany());
+                        entity.getLocationCompany().setId(save.getId());
+                    }
+                    return entity;
+                })
                 .map(companyCreateEditMapper::map)
                 .map(companyRepository::save)
                 .map(companyReadMapper::map)
@@ -61,18 +78,26 @@ public class CompanyService {
         return map;
 
     }
-
-@Transactional
-    public boolean delete(Long id) {
-        return companyRepository.findById(id).map(entity -> {
-            companyRepository.delete(entity);
-            return true;
-        }).orElse(false);
+    public Optional<CompanyReadDto> findById(Long id){
+        return companyRepository.findById(id)
+                .map(companyReadMapper::map);
     }
-@Transactional
+
+    @Transactional
+    public boolean delete(Long id) {
+        Optional<Company> byId = companyRepository.findByIdWithLocationCompany(id);
+        companyRepository.delete(byId.get());
+        return true;
+//        return companyRepository.findById(id).map(entity -> {
+//            companyRepository.delete(entity);
+//            return true;
+//        }).orElse(false);
+    }
+
+    @Transactional
     public Optional<CompanyReadDto> update(CompanyCreateEditDto company) {
         return companyRepository.findByIdWithLocationCompany(company.getId())
-                .map(entity -> companyCreateEditMapper.map(company,entity))
+                .map(entity -> companyCreateEditMapper.map(company, entity))
                 .map(companyRepository::saveAndFlush)
                 .map(companyReadMapper::map);
     }

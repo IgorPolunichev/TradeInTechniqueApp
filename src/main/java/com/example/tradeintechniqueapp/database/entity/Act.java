@@ -1,5 +1,6 @@
 package com.example.tradeintechniqueapp.database.entity;
 
+import com.example.tradeintechniqueapp.database.entity.audit.ActPay;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,28 +18,39 @@ import java.util.List;
 @Entity
 @Table(name = "acts")
 public class Act implements BaseEntity<Long> {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate date;
     @Builder.Default
-    @ElementCollection
-    @CollectionTable(name = "act_works")
+//    @ElementCollection
+//    @CollectionTable(name = "act_works")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "act_id")
     private List<Work> works = new ArrayList<>();
 
     private String number;
-
     private String numberApplication;
-
-    @OneToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    private Machine machine;
+    String car;
+    String licensePlate;
+    String placeOfWork;
+    String actDescription;
+    @Enumerated(EnumType.STRING)
+    ActPay actPay;
 
     @Builder.Default
-    @OneToMany(mappedBy = "act", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "act", cascade = CascadeType.ALL)
     private List<ActUser> actUserList = new ArrayList<>();
+
+    public void setWorks(List<Work> works) {
+        this.works = works;
+        for (Work work : works) {
+            work.setAct(this);
+        }
+    }
 
     @Override
     public String toString() {
@@ -46,7 +58,6 @@ public class Act implements BaseEntity<Long> {
                "id=" + id +
                ", date=" + date +
                ", number='" + number + '\'' +
-               ", numberApplication='" + numberApplication + '\'' +
                '}';
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PartDtoMapper implements Mapper<Part, PartDto> {
     @Override
     public PartDto map(Part object) {
-        return new PartDto(object.getId(), object.getIdentNumber());
+        return new PartDto(object.getId(), object.getIdentNumber(), object.getName());
     }
 
     @Override

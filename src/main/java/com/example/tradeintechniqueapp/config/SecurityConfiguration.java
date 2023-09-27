@@ -26,7 +26,9 @@ public class SecurityConfiguration {
                                 , "/api/v1/**"
                                 , "/v3/api-docs/**"
                                 , "/swagger-ui/**"
-                                , "/swagger-ui.html").permitAll()
+                                , "/swagger-ui.html"
+                        , "/v3/api-docs/**"
+                                , "/swagger-ui/**").permitAll()
                         .requestMatchers("/users", "/api/v1/**", "api/v3/companies/**").hasAuthority(Role.ADMIN.getAuthority())
                         .anyRequest().authenticated())
                 .logout(logout -> logout

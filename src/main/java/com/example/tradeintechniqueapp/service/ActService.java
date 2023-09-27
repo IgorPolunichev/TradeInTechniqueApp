@@ -1,14 +1,25 @@
 package com.example.tradeintechniqueapp.service;
 
+import com.example.tradeintechniqueapp.database.entity.Act;
+import com.example.tradeintechniqueapp.database.entity.Work;
+import com.example.tradeintechniqueapp.database.repository.actRepo.ActCheckWorkRepository;
 import com.example.tradeintechniqueapp.database.repository.actRepo.ActRepository;
 import com.example.tradeintechniqueapp.database.repository.actRepo.ActUserRepository;
 import com.example.tradeintechniqueapp.database.repository.userRepo.UserRepository;
 import com.example.tradeintechniqueapp.dto.actsDto.ActCreateEditDto;
+import com.example.tradeintechniqueapp.dto.usersDto.CustomUserDetails;
+import com.example.tradeintechniqueapp.dto.workReadDto.WorkCheckDto;
 import com.example.tradeintechniqueapp.mapper.actMappers.ActCreateEditMapper;
-import com.example.tradeintechniqueapp.mapper.userMappers.UserCreateEditMapper;
+import com.example.tradeintechniqueapp.mapper.userMappers.UserReadMapper;
+import com.example.tradeintechniqueapp.mapper.workMapper.WorkCheckMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,26 +29,36 @@ public class ActService {
     private final ActRepository actRepository;
     private final ActUserRepository actUserRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final ActCreateEditMapper actCreateEditMapper;
-    private final UserCreateEditMapper userCreateEditMapper;
+    private final UserReadMapper userReadMapper;
+    private final WorkCheckMapper workCheckMapper;
+    private final ActCheckWorkRepository actCheckWork;
 
-public boolean create(ActCreateEditDto act, Long authUserId){
-//    ActUser actUser = new ActUser();
-//    actUser.setUser(new User(authUserId));
-//    Act act1 = actCreateEditMapper.map(act);
-//    actUser.setAct(act1);
-//    actUserRepository.save(actUser);
-//    actRepository.save(act1);
-//    userRepository.updateActCounterByUserId(authUserId);
-    return true;
+    @Transactional
+    public boolean create(ActCreateEditDto act) {
+        CustomUserDetails u = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userRepository.findById(u.getId()).ifPresent(e -> {
+            e.setCounterActs(e.getCounterActs() + 1);
+            act.getUsers().add(userReadMapper.map(e));
 
-}
-
-private String getNumberAct(Long authUser, Long lastNumberAct){
-//    String lastNumberActByUser = actRepository.findLastAcyByUserId(authUser);
-    return null;
-
-}
+        });
+        Act save = actRepository.save(actCreateEditMapper.map(act));
+        return true;
+    }
 
 
+    private String getNumberAct(Long authUser, Long lastNumberAct) {
+        return null;
+
+    }
+
+    public Optional<List<WorkCheckDto>> checkWork(Work work, Long id) {
+        Optional<List<Work>> works = actCheckWork.checkWork(work, id);
+        if (works.isEmpty()){
+            return Optional.empty();
+        } else {
+            return works.map(workCheckMapper::map);
+        }
+    }
 }

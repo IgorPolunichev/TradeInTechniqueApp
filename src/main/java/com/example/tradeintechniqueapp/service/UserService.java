@@ -1,5 +1,7 @@
 package com.example.tradeintechniqueapp.service;
 
+import com.example.tradeintechniqueapp.database.entity.Machine;
+import com.example.tradeintechniqueapp.database.entity.Role;
 import com.example.tradeintechniqueapp.database.entity.User;
 import com.example.tradeintechniqueapp.database.entity.audit.AuditingEntity;
 import com.example.tradeintechniqueapp.database.repository.actRepo.ActUserRepository;
@@ -10,8 +12,11 @@ import com.example.tradeintechniqueapp.mapper.userMappers.UserCreateEditMapper;
 import com.example.tradeintechniqueapp.mapper.userMappers.UserReadForAdminMapper;
 import com.example.tradeintechniqueapp.mapper.userMappers.UserReadMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,9 +50,19 @@ public class UserService implements UserDetailsService {
         return new UserDto(saveUser.getId(), saveUser.getUsername());
     }
 
+    public Page<UserReadDto> findAllByFilter(UserFilter userFilter, Pageable pageable){
+        ExampleMatcher exampleMatcher = ExampleMatcher
+                .matching()
+                .withMatcher( "lastname",ExampleMatcher.GenericPropertyMatchers.contains());
+        Example<User> userExample = Example.of(User.builder()
+                .lastname(userFilter.lastname())
+                .role(Role.USER)
+                .build(), exampleMatcher);
+        return userRepository.findAll(userExample, pageable).map(userReadMapper::map);
+    }
+
     public List<UserReadDto> findAll() {
         List<? extends AuditingEntity<Long>> list = userRepository.findAll();
-        System.out.println(list.get(0).getCreatedAt());
         return userRepository.findAll()
                 .stream()
                 .map(userReadMapper::map)
@@ -95,9 +110,15 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username).map(user ->
                         new CustomUserDetails(user.getId(), user.getCounterActs(), user.getUsername(),
-                                user.getPassword(),
+                                user.getPassword(),  user.getLastname(),user.getFirstname(), user.getSurname(),
                                 Collections.singleton(user.getRole()))).
                 orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user:" + username));
+    }
+
+    public Optional<UserReadDto> getAuthUser() {
+        CustomUserDetails u = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findById(u.getId())
+                .map(userReadMapper::map);
     }
 }
 

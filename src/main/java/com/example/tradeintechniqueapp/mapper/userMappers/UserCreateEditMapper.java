@@ -37,7 +37,7 @@ public class UserCreateEditMapper implements Mapper<UserCreateEditDto, User> {
         user.setPosition(object.getPosition());
         user.setSurname(object.getSurname());
         user.setBirthDate(object.getBirthDate());
-
+        user.setCounterActs(0);
         Optional.ofNullable(object.getRowPassword())
                 .filter(StringUtils::hasText)
                 .map(passwordEncoder::encode)

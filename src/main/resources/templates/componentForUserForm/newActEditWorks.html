@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New act edit works</title>
+</head>
+<body>
+<div th:fragment="newActEditWorks">
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="editWorksModal" tabindex="-1" aria-labelledby="editWorksModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editWorksModalLabel">Изменить работы</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть" id="close-editWorkModal-top-newAct"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" th:name="exception-editWorkModal">
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <form class="was-validated">
+                                <label for="date-editWork" class="form-label">Дата работы</label>
+                                <input type="date" class="form-control" id="date-editWork" name="date-editWork">
+                            </form>
+                        </div>
+
+                        <div class="col-2">
+                            <form class="was-validated">
+                                <label for="timeFrom-editWork" class="form-label">C:</label>
+                                <input type="time" class="form-control" id="timeFrom-editWork" name="timeWorkFrom-editWork">
+                            </form>
+                        </div>
+                        <div class="col-2">
+                            <form class="was-validated" id="form-timeWorkTo-editWork">
+                                <label for="timeTo" class="form-label">До:</label>
+                                <input type="time" class="form-control" id="timeTo" name="timeWorkTo-editWork">
+                            </form>
+                            </div>
+
+                            <div class="col-2">
+                                <label for="lunchTimeFrom-editWork" class="form-label">Пауза с:</label>
+                                <input type="time" class="form-control" id="lunchTimeFrom-editWork" name="timeLunchFrom-editWork">
+                            </div>
+                            <div class="col-2">
+                                <label for="lunchTimeTo-editWork" class="form-label">до:</label>
+                                <input type="time"  class="form-control" id="lunchTimeTo-editWork" name="timeLunchTo-editWork"disabled>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="placeOfDeparture-editWork" class="form-label">Выезд из:</label>
+                                <input type="text" class="form-control" id="placeOfDeparture-editWork" name="placeOfDeparture-editWork">
+                            </div>
+
+                            <div class="col-4">
+                                <label for="placeOfArrival-editWork" class="form-label">Прибытие в:</label>
+                                <input type="text" class="form-control" id="placeOfArrival-editWork" name="placeOfArrival-editWork">
+                            </div>
+                            <div class="col-4">
+                                <label for="mileage-editWork" class="form-label">Пробег:</label>
+                                <input type="number" class="form-control" id="mileage-editWork" name="mileage-editWork">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <form class="was-validated" id="descriptionOfWorks-validation-editWork">
+                                        <label for="descriptionOfWorks-editWork" class="form-label">Описание работ</label>
+                                        <textarea class="form-control" id="descriptionOfWorks-editWork" name="descriptionOfWorks-editWork"
+                                                  rows="8"></textarea>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="close-editWorkModal-newAct">Закрыть
+                        </button>
+                        <form class="was-validated">
+                            <button type="button" class="btn btn-primary" id="save-editWorksModal-newAct"
+                                    data-bs-dismiss="modal" disabled>Сохранить изменения
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.example.tradeintechniqueapp.http.restController;
 import com.example.tradeintechniqueapp.database.entity.Position;
 import com.example.tradeintechniqueapp.database.entity.Role;
 import com.example.tradeintechniqueapp.dto.usersDto.UserCreateEditDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserFilter;
 import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import com.example.tradeintechniqueapp.dto.usersDto.UserReadDtoForAdmin;
 import com.example.tradeintechniqueapp.service.UserService;
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1")
 //@RequestMapping(value = "foos", produces = MediaType.APPLICATION_JSON_VALUE)
 //@OpenAPIDefinition(info = @Info(title = "Foos API", version = "v1"))
-public class UserRestController {
+public class UsersRestController {
 
     private final UserService userService;
 
@@ -36,7 +37,11 @@ public class UserRestController {
     @GetMapping(value = "/users")
     public Page<UserReadDtoForAdmin> getUsers(@PageableDefault(size = 20) Pageable pageable) {
         return userService.findAll(pageable);
+    }
 
+    @GetMapping(value = "/usersByFilter")
+    public Page<UserReadDto> getUsersByFilter(UserFilter userFilter, @PageableDefault (size = 15) Pageable pageable){
+        return userService.findAllByFilter(userFilter, pageable);
     }
     @GetMapping(value = "/positions")
     public List<Position> getPosition() {
@@ -57,9 +62,15 @@ public class UserRestController {
 
     }
 
+
     @DeleteMapping("/{id}")
     public boolean delete( @PathVariable Long id) {
         return userService.delete(id);
+
+    }
+    @GetMapping("authUser/")
+    public Optional<UserReadDto> getAuthUser() {
+        return userService.getAuthUser();
 
     }
 

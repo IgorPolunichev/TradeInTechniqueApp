@@ -1,6 +1,7 @@
 package com.example.tradeintechniqueapp.dto.companiesDto;
 
 import com.example.tradeintechniqueapp.database.entity.LocationCompany;
+import com.example.tradeintechniqueapp.dto.localCompaniDto.LocalCompanyReadDto;
 import lombok.Value;
 
 @Value
@@ -9,5 +10,5 @@ public class CompanyReadDto {
     String nameCompany;
     String inn;
     String kpp;
-    LocationCompany locationCompany;
+    LocalCompanyReadDto locationCompany;
 }

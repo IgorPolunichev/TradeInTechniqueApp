@@ -1,10 +1,8 @@
 package com.example.tradeintechniqueapp.mapper.companyMappers;
 
 import com.example.tradeintechniqueapp.database.entity.Company;
-import com.example.tradeintechniqueapp.database.entity.User;
+import com.example.tradeintechniqueapp.database.entity.LocationCompany;
 import com.example.tradeintechniqueapp.dto.companiesDto.CompanyCreateEditDto;
-import com.example.tradeintechniqueapp.dto.companiesDto.CompanyDto;
-import com.example.tradeintechniqueapp.dto.usersDto.UserCreateEditDto;
 import com.example.tradeintechniqueapp.mapper.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +22,7 @@ public class CompanyCreateEditMapper implements Mapper<CompanyCreateEditDto, Com
         return toObject;
     }
 
-    private void copy(CompanyCreateEditDto from, Company to){
+    private void copy(CompanyCreateEditDto from, Company to) {
         to.setInn(from.getInn());
         to.setKpp(from.getKpp());
         to.setNameCompany(from.getNameCompany());

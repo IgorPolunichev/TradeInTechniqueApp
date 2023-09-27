@@ -27,8 +27,11 @@ public class Company implements BaseEntity<Long> {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private List<Machine> machines = new ArrayList<>();
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_company_id")
     private LocationCompany locationCompany;
+
+
 
     @Override
     public String toString() {

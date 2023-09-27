@@ -22,6 +22,7 @@ public class Machine extends AuditingEntity<Long> {
     private Long id;
     private String type;
     private String serialNumber;
+    private String subtype;
     private Integer operatingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

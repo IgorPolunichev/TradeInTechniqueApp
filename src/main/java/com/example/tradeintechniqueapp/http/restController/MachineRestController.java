@@ -9,9 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,22 +21,26 @@ public class MachineRestController {
     private final MachineService machineService;
 
     @GetMapping
-    public Page<MachineReadDto> getAllMachinesByFilter(MachineFilter machineFilter, @PageableDefault(size = 20) Pageable pageable){
+    public Page<MachineReadDto> getAllMachinesByFilter(MachineFilter machineFilter, @PageableDefault(size = 20) Pageable pageable) {
         return machineService.findAll(machineFilter, pageable);
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MachineReadDto create(@RequestBody MachineCreateEditDto machine){
+    public MachineReadDto create(@RequestBody MachineCreateEditDto machine) {
         return machineService.create(machine);
     }
 
+
     @PutMapping()
-    public Optional<MachineReadDto> update(@RequestBody MachineCreateEditDto machine){
-        return  machineService.update(machine.getId(), machine);
+    public Optional<MachineReadDto> update(@RequestBody MachineCreateEditDto machine) {
+        return machineService.update(machine.getId(), machine);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    public boolean deleteMachine(@PathVariable Long id){
+    public boolean deleteMachine(@PathVariable Long id) {
         return machineService.delete(id);
     }
 

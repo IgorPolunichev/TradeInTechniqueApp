@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New act top</title>
+</head>
+<body>
+<div th:fragment="newActTop">
+    <div class="row">
+        <div class="col-2 py-2" id="dateAct-newAct">
+            <form class="was-validated">
+                <label for="date" class="form-label">Дата акта</label>
+                <input type="date" class="form-control" id="date" name="date" required/>
+            </form>
+
+        </div>
+        <div class="col-1 py-2">
+            <fieldset disabled>
+                <div class="mb-3">
+                    <label for="input-numberAct-newAct" class="form-label">№ Акта</label>
+                    <input type="text" id="input-numberAct-newAct" class="form-control">
+<!--                           th:value="${#authentication.getPrincipal().username}+'-'+${#authentication.getPrincipal().counterActs}">-->
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-2 py-2">
+            <div class="mb-3">
+                <label for="numberAndDAteApplication" class="form-label">№, дата Заявки от Заказчика</label>
+                <input type="text" class="form-control" id="numberAndDAteApplication">
+            </div>
+        </div>
+
+        <div class="col-3 py-2">
+            <fieldset disabled>
+                <div class="mb-3">
+                    <label for="serviceEngineer" class="form-label">Сервисный инженер</label>
+                    <input class="form-control" id="serviceEngineer" th:value="${#authentication.getPrincipal().lastname} +
+                            ' ' + ${#authentication.getPrincipal().firstname} +
+                            ' ' + ${#authentication.getPrincipal().surname} "
+                           type="text">
+
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col py-2">
+            <div class="row">
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="inputCarModel" class="form-label">Автомобиль</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="inputCarModel">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="inputCarNumber" class="form-label">Рег. знак</label>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="inputCarNumber">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="mb-2">
+                        <label for="placeOfWork" class="form-label">Место проведения работ</label>
+                        <input type="text" class="form-control" id="placeOfWork">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</body>
+</html>

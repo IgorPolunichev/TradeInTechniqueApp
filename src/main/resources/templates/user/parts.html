@@ -11,14 +11,10 @@
 <div th:insert="~{componentForAdminForm/navBarForAdminForm :: navBarForAdminForm }"></div>
 <div class="container-fluid">
     <div class="row py-2">
-        <div class="col-1">
+        <div class="col-3">
             <div class="py-1" th:insert="~{componentForAdminForm/addPart::addPart}"></div>
         </div>
-        <div id="all-tables" class="col-11">
-            <div class="row">
-                <div id="search-spase" class="col-5">
-                </div>
-            </div>
+        <div id="all-tables" class="col-9">
             <div id="form-tables" class="col-11">
                 <div class="col-6">
                     <div class="input-group mb-3">
@@ -31,22 +27,36 @@
                         <input id="search-button-val-partList" type="text" class="form-control" placeholder=""
                                aria-describedby="search-button">
                     </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" id="Search-By-IdentNumber" type="radio" name="flexRadioSearchBy"
+                               value="partNumber"
+                               checked>
+                        <label class="form-check-label" for="Search-By-IdentNumber">
+                            Search by ident number
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioSearchBy" id="Search-By-Name" value="name">
+                        <label class="form-check-label" for="Search-By-Name">
+                            Search by name
+                        </label>
+                    </div>
+
                 </div>
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name part</th>
-                        <th scope="col">Ident number</th>
+                    <tr id="body-partList-table-thad">
                     </tr>
                     </thead>
-                    <tbody id="body-partList-table">
+                    <tbody id="body-partList-table-body">
                     </tbody>
                 </table>
             </div>
             <div>
                 <nav aria-label="...">
-                    <ul id="count-pages-for-body-partList-table" class="pagination pagination-sm">
+                    <ul id="count-pages-for-partList-table" class="pagination pagination-sm">
                     </ul>
                 </nav>
             </div>
@@ -58,6 +68,8 @@
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="/static/js/button/forNavBar.js" th:src="@{../../static/js/button/forNavBar.js}"
+        type="text/javascript"></script>
+<script src="/static/js/button/forPartsList.js" th:src="@{../../static/js/button/forPartsList.js}"
         type="text/javascript"></script>
 </body>
 </html>

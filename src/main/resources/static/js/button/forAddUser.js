@@ -1,4 +1,4 @@
-let roles=0;
+let roles = 0;
 let positions = 0;
 $(document).ready(async function () {
 
@@ -19,9 +19,6 @@ $(document).ready(async function () {
             , position: $('#position').val()
         });
         const dataUrl = 'http://localhost:8080/api/v1';
-
-        // $.post('api/v1',
-        //     JSON.stringify(data)).contentType('application/json; charset=utf-8');
         const tet = await fetch(dataUrl, {
             method: 'POST',
             headers: {
@@ -29,46 +26,25 @@ $(document).ready(async function () {
             },
             body: data
         });
-        console.log(tet)
-        console.log(token)
+
+        $('#username').val('')
+        $('#firstname').val('')
+        $('#lastname').val('')
+        $('#surname').val('')
+        $('#birthDate').val('')
+        $('#rowPassword').val('')
+        $('#roles').val('')
+        $('#position').val('')
+
         await getAllUsers()
         createUsersTable(usersList)
-
-        // const res = await fetch('http://localhost:8080/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: {username:"test"}
-        // })
-        // console.log(res)
-
-        // $.ajax({
-        //     type: 'POST',
-        //     uri: 'http://localhost:8080/api/v1',
-        //     data:
-        //         JSON.stringify({username: "test"}),
-        //     traditional: true,
-        //     contentType: 'application/json; charset=utf-8',
-        //     dataType: 'json',
-        //     async: true
-        // headers: {
-        //     'Content-type': 'application/json; charset=utf-8',
-        //     'username':'polusha',
-        //     'X-CSRF-Token': token
-        // },
-        // success: function (result) {
-        //     $('#surname').html(result)
-        // }
-        // })
     });
 
 
     // Добавление выпадающего списка ролей
-    if (roles===0){
+    if (roles === 0) {
         await getRoles()
     }
-    // const roles = await (await fetch('http://localhost:8080/api/v1/roles')).json();
     $.each(roles, function (index, value) {
         $('#roles').append(
             $(document.createElement('option')).prop({
@@ -79,7 +55,7 @@ $(document).ready(async function () {
     })
 
     // Добавление выпадающего списка должностей
-    if(positions===0){
+    if (positions === 0) {
         await getPositions()
     }
     // const position = await (await fetch('http://localhost:8080/api/v1/positions')).json();
@@ -97,10 +73,10 @@ $(document).ready(async function () {
 
 });
 
-async function getRoles(){
+async function getRoles() {
     roles = await (await fetch('http://localhost:8080/api/v1/roles')).json();
 }
 
-async function getPositions(){
+async function getPositions() {
     positions = await (await fetch('http://localhost:8080/api/v1/positions')).json();
 }

@@ -3,6 +3,7 @@ springdoc:
   swagger-ui:
     oauth:
       use-basic-authentication-with-access-code-grant: true
+
 spring:
   mvc:
     view:
@@ -15,9 +16,6 @@ spring:
     password: LiEbheRR$6
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
-
-
   jpa:
     properties:
       hibernate:
@@ -28,9 +26,17 @@ spring:
           auto: validate
     open-in-view: true
 #        dialect: org.hibernate.dialect.MySQLDialect
+  servlet:
+    multipart:
+      max-file-size: 10000000
+      max-request-size: 10000000
+
 logging:
   level:
     root: info
     org.springframework.jdbc.core: trace
 
+app:
+  partsList:
+    bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp\partList
 

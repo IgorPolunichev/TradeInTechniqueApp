@@ -34,6 +34,7 @@ $(document).ready(async function () {
         let idCompany = $('#companyRadio:checked').val()
         let type = $('#type').val()
         let serialNumber = $('#serialNumber').val()
+        let subtype = $('#subtype').val()
         let operatingTime = $('#operatingTime').val()
         let yearOfRelease = $('#yearOfRelease').val()
         const createMachineURL = 'http://localhost:8080/api/v2/machines'
@@ -41,6 +42,7 @@ $(document).ready(async function () {
         const data = JSON.stringify({
             type: type
             , serialNumber: serialNumber
+            , subtype: subtype
             , operatingTime: operatingTime
             , yearOfRelease: yearOfRelease
             , companyId: idCompany
@@ -55,6 +57,7 @@ $(document).ready(async function () {
         $('#body-companies-table').empty();
         $('#type').val('')
         $('#serialNumber').val('')
+        $('#subtype').val('')
         $('#operatingTime').val('')
         $('#yearOfRelease').val('')
         formTable.empty()
@@ -100,5 +103,5 @@ function createCompaniesTable(nameBodyTable, companies) {
     });
 
 
-};
+}
 

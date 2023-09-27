@@ -22,10 +22,6 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CastomSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    private final String URL_FOR_ADMIN = "/users";
-//    private final String URL_FOR_ADMIN = "/v3/api-docs/";
-    private final String URL_FOR_ALL = "/users/%d";
-
     private RequestCache requestCache = new HttpSessionRequestCache();
 
 
@@ -33,8 +29,11 @@ public class CastomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
         if (authentication.getAuthorities().contains(Role.ADMIN)) {
+            String URL_FOR_ADMIN = "/users";
             super.setDefaultTargetUrl(URL_FOR_ADMIN);
         } else {
+//            String URL_FOR_ALL = "/user/%d";
+            String URL_FOR_ALL = "/user";
             super.setDefaultTargetUrl(String.format(URL_FOR_ALL,
                     getUserId(authentication)));
         }
@@ -58,12 +57,9 @@ public class CastomSuccessHandler extends SavedRequestAwareAuthenticationSuccess
 
     private Long getUserId(Authentication authentication) {
         return ((CustomUserDetails) authentication.getPrincipal()).getId();
-
     }
 
     public void setRequestCache(RequestCache requestCache) {
         this.requestCache = requestCache;
     }
-
-
 }

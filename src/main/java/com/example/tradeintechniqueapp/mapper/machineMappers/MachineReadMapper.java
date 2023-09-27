@@ -13,6 +13,7 @@ public class MachineReadMapper implements Mapper<Machine, MachineReadDto> {
         return new MachineReadDto(object.getId()
                 , object.getType()
                 , object.getSerialNumber()
+                ,object.getSubtype()
                 , object.getOperatingTime()
                 , object.getYearOfRelease()
         ,object.getCompany().getNameCompany()

@@ -10,6 +10,7 @@ public class MachineCreateEditDto {
     Long id;
     String type;
     String serialNumber;
+    String subtype;
     int operatingTime;
     Year yearOfRelease;
     Long companyId;

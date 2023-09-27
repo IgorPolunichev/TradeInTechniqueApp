@@ -65,12 +65,13 @@ $(document).ready(async function () {
         let id = machineIdForUpdate
         let type = $('#editMachine-type').val()
         let serialNumber = $('#editMachine-serialNumber').val()
+        let subtype = $('#editMachine-subtype').val()
         let operatingTime = $('#editMachine-operatingTime').val()
         let idCompany;
         if ($('input[name="companyRadio"]').is(':checked')) {
             idCompany = $('#companyRadio:checked').val()
             console.log(idCompany)
-        }else {
+        } else {
             idCompany = company
         }
         let yearOfRelease = $('#editMachine-yearOfRelease').val()
@@ -80,6 +81,7 @@ $(document).ready(async function () {
             id: id
             , type: type
             , serialNumber: serialNumber
+            , subtype: subtype
             , operatingTime: operatingTime
             , yearOfRelease: yearOfRelease
             , companyId: idCompany
@@ -104,7 +106,6 @@ $(document).ready(async function () {
 async function getAllMachines(url) {
     const allMachines = await (await fetch(url)).json();
     machinesList = allMachines.content
-    console.log(allMachines)
     totalPages = allMachines.totalPages
 };
 
@@ -127,6 +128,7 @@ function createMachineTable(allMachines) {
         "<th scope='col'>id</th>" +
         "<th scope='col'>Type</th>" +
         "<th scope='col'>Serial number</th>" +
+        "<th scope='col'>Subtype</th>" +
         "<th scope='col'>Operating time</th>" +
         "<th scope='col'>Year of release</th>" +
         "<th scope='col'>Company</th>" +
@@ -145,6 +147,7 @@ function createMachineTable(allMachines) {
             "<th scope='row'>" + value.id + "</th>" +
             "<td>" + value.type + "</td>" +
             "<td>" + value.serialNumber + "</td>" +
+            "<td>" + value.subtype + "</td>" +
             "<td>" + value.operatingTime + "</td>" +
             "<td>" + value.yearOfRelease + "</td>" +
             "<td>" + value.companyName + "</td>" +
@@ -168,6 +171,7 @@ function editMachine(id) {
 
             $('#editMachine-operatingTime').val(value.operatingTime)
             $('#editMachine-serialNumber').val(value.serialNumber)
+            $('#editMachine-subtype').val(value.subtype)
             $('#editMachine-type').val(value.type)
             $('#editMachine-yearOfRelease').val(value.yearOfRelease)
             $('#editMachine-machineOwner').val(value.companyName)

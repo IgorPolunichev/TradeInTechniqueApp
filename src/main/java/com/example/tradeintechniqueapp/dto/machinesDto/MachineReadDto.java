@@ -9,6 +9,7 @@ public class MachineReadDto {
     Long id;
     String type;
     String serialNumber;
+    String subtype;
     int operatingTime;
     Year yearOfRelease;
 

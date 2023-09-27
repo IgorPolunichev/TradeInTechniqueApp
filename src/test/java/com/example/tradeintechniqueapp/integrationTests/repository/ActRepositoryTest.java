@@ -50,7 +50,6 @@ public class ActRepositoryTest extends IntegrationTestBase {
         Act testAct = Act.builder()
                 .date(LocalDate.now())
                 .works(works)
-                .company(company)
                 .build();
 
         ActUser actUser = new ActUser();

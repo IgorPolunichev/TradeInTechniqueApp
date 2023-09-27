@@ -28,6 +28,7 @@ public class MachineCreateEditMapper implements Mapper<MachineCreateEditDto, Mac
         to.setType(from.getType());
         to.setOperatingTime(from.getOperatingTime());
         to.setSerialNumber(from.getSerialNumber());
+        to.setSubtype(from.getSubtype());
         to.setYearOfRelease(from.getYearOfRelease());
 
     }

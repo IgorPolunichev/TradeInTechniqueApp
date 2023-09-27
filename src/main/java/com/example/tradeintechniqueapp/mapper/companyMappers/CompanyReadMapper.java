@@ -1,13 +1,15 @@
 package com.example.tradeintechniqueapp.mapper.companyMappers;
 
 import com.example.tradeintechniqueapp.database.entity.Company;
-import com.example.tradeintechniqueapp.database.entity.LocationCompany;
 import com.example.tradeintechniqueapp.dto.companiesDto.CompanyReadDto;
+import com.example.tradeintechniqueapp.dto.localCompaniDto.LocalCompanyReadDto;
 import com.example.tradeintechniqueapp.mapper.Mapper;
+import com.example.tradeintechniqueapp.mapper.localCompanyMapper.LocalCompanyMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CompanyReadMapper implements Mapper<Company, CompanyReadDto> {
+
     @Override
     public CompanyReadDto map(Company object) {
 
@@ -16,11 +18,10 @@ public class CompanyReadMapper implements Mapper<Company, CompanyReadDto> {
                 , object.getNameCompany()
                 , object.getInn()
                 , object.getKpp()
-                , new LocationCompany(object.getLocationCompany().getId()
-                , object.getLocationCompany().getCity()
-                ,object.getLocationCompany().getStreet()
-        ,object.getLocationCompany().getHouse()
-        ,object.getLocationCompany().getZipCode())
+                , new LocalCompanyReadDto(object.getLocationCompany().getCity()
+                , object.getLocationCompany().getStreet()
+                , object.getLocationCompany().getHouse()
+                , object.getLocationCompany().getZipCode())
         );
     }
 
@@ -32,4 +33,5 @@ public class CompanyReadMapper implements Mapper<Company, CompanyReadDto> {
     private void copy(Company from, CompanyReadDto to) {
 
     }
+
 }

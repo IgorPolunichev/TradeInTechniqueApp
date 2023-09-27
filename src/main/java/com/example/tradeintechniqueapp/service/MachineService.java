@@ -58,11 +58,10 @@ public class MachineService {
     public Page<MachineReadDto> findAll(MachineFilter machineFilter, Pageable pageable) {
         ExampleMatcher exampleMatcher = ExampleMatcher
                 .matchingAny()
-                .withMatcher("serialNumber", ExampleMatcher.GenericPropertyMatchers.contains());
+                .withMatcher("serialNumber", ExampleMatcher.GenericPropertyMatchers.startsWith());
         Example<Machine> machineExample = Example.of(Machine.builder().serialNumber(machineFilter.serialNumber()).build(), exampleMatcher);
-        Page<MachineReadDto> allWithCompany = machineRepository.findAll(machineExample, pageable).map(machineReadMapper::map);
-        System.out.println();
-        return allWithCompany;
+        Page<MachineReadDto> map = machineRepository.findAll(machineExample, pageable).map(machineReadMapper::map);
+        return map;
 
     }
 

@@ -18,5 +18,7 @@ public class UserReadDto {
     LocalDate birthDate;
     Role role;
     Position position;
+    Integer counterActs;
+
 
 }
