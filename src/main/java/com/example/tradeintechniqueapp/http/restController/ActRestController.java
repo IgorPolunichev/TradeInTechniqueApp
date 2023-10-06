@@ -24,7 +24,8 @@ public class ActRestController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public boolean createAct(@RequestBody ActCreateEditDto act) {
-        return actService.create(act);
+//        return actService.create(act);
+        return false;
     }
 
     @PostMapping(value = "/checkWorks", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -43,7 +43,6 @@ $(document).ready(function () {
         }
 
         $('#count-pages-for-partList-table a').click(async function () {
-            console.log('test')
             await getListEntities(getUriForListEntities('/api/v4/parts/allPartsByFilter?'
                 ,filterBy
                 , filter

@@ -8,10 +8,11 @@ let timeOfWork = 0;
 let listWorks = [];
 let regTime = /^\d{2}:\d{2}\b/;
 const regNumber = /\d/;
-const regText = /\w/;
+const regText = /[а-яА-ЯA-Za-z]/;
 let editWorkIndex;
 let descriptionOfAct = $('#descriptionOfAct')
 let authUserId;
+let listPartForAct = [];
 
 const exceptionValidateActModalBody = $('#exceptionValidate-NewAct div[name = "exceptionValidate-bodyModal-NewAct"]')
 const exceptionValidateActModal = $('#exceptionValidate-NewAct')
@@ -236,6 +237,68 @@ $(document).ready(async function () {
         }
     })
 
+    let listParts;
+    $('#search-button-partList-newAct').click(async function () {
+        let bodyTable = "partsTableForUsers"
+        let filter = $('#search-button-val-partList-newAct').val()
+        let filterBy = $('input[name = "flexRadioSearchBy"]:checked').val()
+        let pageSize = 10
+        listParts = await getListEntities(getUriForListEntities('/api/v4/parts/allPartsByFilter?'
+            , filterBy
+            , filter
+            , undefined
+            , pageSize))
+        clearPartsTable(bodyTable)
+        createTableParts(listParts.content, ['#', "Номер детали", "Название"], bodyTable)
+        createCountPage(listParts.totalPages, 'count-pages-for-partList-table-newAct')
+
+        $('#count-pages-for-partList-table-newAct a').click(async function () {
+            listParts = await getListEntities(getUriForListEntities('/api/v4/parts/allPartsByFilter?'
+                , filterBy
+                , filter
+                , this.id - 1
+                , pageSize))
+            clearPartsTable("partsTableForUsers")
+            createTableParts(listParts.content, ['#', "Номер детали", "Название"], "partsTableForUsers")
+        })
+
+        $('#save-addPartsModal-newAct').click(function () {
+            let t = $('#partsTableForUsers-body input[name = "partRadio"]:checked').val()
+            if (t !== undefined) {
+                let part = listParts.content.at(t)
+                listPartForAct.push(part)
+                console.log(t)
+                console.log(part)
+                $('#partsList-newAct').append(
+                    "<tr id=" + part.id + ">" +
+                    // "<th scope='row'>" +
+                    // "<input class='form-check-input' type='radio' name='partRadio' id='partRadio' value=" + index + ">" +
+                    // "</th>" +
+                    "<td>" + part.identNumber + "</td>" +
+                    "<td>" + part.name + "</td>" +
+                    "<td><input type='number' class='form-control'></td>" +
+                    "<td>" +
+                    "<select class='form-select'>" +
+                    "  <option selected  value='L'>Либхерр</option>" +
+                    "  <option value='K'>Клиент</option>" +
+                    "  <option value='T'>TnT</option>" +
+                    "</select>" +
+                    "</td>" +
+                    "</tr>"
+                )
+                clearPartsTable("partsTableForUsers")
+            }
+
+        })
+
+    })
+
+    $('#addParts-newAct').click(function () {
+        clearPartsTable("partsTableForUsers")
+        $('#search-button-val-partList-newAct').val(undefined)
+        $('#count-pages-for-partList-table-newAct').empty()
+    })
+
 
     $('#save-addWorksModal-newAct').click(async function () {
         if (regTime.test(timeLunchFrom.val())) {
@@ -253,8 +316,9 @@ $(document).ready(async function () {
                 createWorkRow(listWorks)
                 clearAddWorkModal()
                 resetValidateModals(exceptionAddWorkModal, "addWorks")
-                $('#addWorksModal').modal('hide')
+                // $('#addWorksModal').modal('hide')
             }
+
         } else {
             if (await addWork(
                 dateWork.val()
@@ -270,10 +334,10 @@ $(document).ready(async function () {
                 createWorkRow(listWorks)
                 clearAddWorkModal()
                 resetValidateModals(exceptionAddWorkModal, "addWorks")
-                $('#addWorksModal').modal('hide')
+                // $('#addWorksModal').hide()
+
             }
         }
-
     })
 
     $('#close-addWorkModal-top-newAct').click(function () {
@@ -387,6 +451,8 @@ $(document).ready(async function () {
                 checkedEngineers.push(v)
             }
         })
+        let parts = await getPartsList()
+        console.log(parts)
         let data = {
             date: $('#date').val()
             , number: numberAct.val()
@@ -400,17 +466,27 @@ $(document).ready(async function () {
             , actPay: getPayAct()
             , actDescription: descriptionOfAct.val()
         };
-        // data = JSON.stringify();
-        await validateAct(data);
+        if (await validateAct(data)) {
+            let response = await fetch('http://localhost:8080/api/v5/acts', {
+                method: 'POST'
+                , headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                }
+                , body: JSON.stringify(data)
+            })
+            if (await response.json().then(res => {
+                return res
+            })) {
+                location.reload()
+            } else {
+                exceptionValidateActModal.modal('show')
+                exceptionValidateActModalBody.append(
+                    "<p class='text-danger' style='font-size: 20px'>Произошла ошибка при сохранении акта обратитесь к администратору!</p>"
+                )
 
-        // await fetch('http://localhost:8080/api/v5/acts', {
-        //     method: 'POST'
-        //     , headers: {
-        //         'Content-type': 'application/json; charset=utf-8'
-        //     }
-        //     , body: JSON.stringify(data)
-        // })
+            }
 
+        }
     })
 
     $('#exceptionValidate-NewAct button[name = "exceptionValidate-close-NewAct"]').click(
@@ -422,8 +498,19 @@ $(document).ready(async function () {
 
 });
 
+async function getPartsList() {
+    let test = $('#partsList-newAct tr').each(function (k) {
+        let t = $(this).attr('id')
+        console.log($(this).attr('id'))
+        console.log($('#' + t + ' input').val())
+        console.log($('#' + t + ' option:selected').val())
+
+    })
+
+    return listPartForAct;
+}
+
 async function validateAct(act) {
-    console.log(regText.test(act.actDescription))
     let res = true;
     if (act.date === '') {
         exceptionValidateActModalBody.append(

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New act add parts</title>
+</head>
+<body>
+<div th:fragment="newActAddParts">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPartsModal" id="addParts-newAct">
+        Справочник запасных частей
+    </button>
+
+    <!-- Модальное окно -->
+    <div class="modal fade" id="addPartsModal" tabindex="-1" aria-labelledby="addPartsModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addPartsModalLabel">Добавить запчасть</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Закрыть" id="close-addPartsModal-top-newAct" name="close-addPartsModal-newAct"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="input-group mb-3">
+                        <button id="search-button-partList-newAct" class="btn btn-primary" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                        <input id="search-button-val-partList-newAct" type="text" class="form-control" placeholder=""
+                               aria-describedby="search-button">
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" id="Search-By-IdentNumber-newAct" type="radio" name="flexRadioSearchBy"
+                               value="partNumber"
+                               checked>
+                        <label class="form-check-label" for="Search-By-IdentNumber-newAct">
+                            Поиск по номеру
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioSearchBy" id="Search-By-Name-newAct" value="name">
+                        <label class="form-check-label" for="Search-By-Name-newAct">
+                            Поиск по названию
+                        </label>
+                    </div>
+                    <table class="table" id = partsTableForUsers>
+                        <thead>
+                        <tr id="partsTableForUsers-thad">
+                        </tr>
+                        </thead>
+                        <tbody id="partsTableForUsers-body">
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <nav aria-label="...">
+                            <ul id="count-pages-for-partList-table-newAct" class="pagination pagination-sm">
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="close-addPartsModal-newAct" name="close-addPartsModal-newAct">Закрыть
+                        </button>
+                        <form class="was-validated">
+                            <button type="button" class="btn btn-primary" id="save-addPartsModal-newAct"
+                                    data-bs-dismiss="modal">Добавить запчасть
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</body>
+</html>

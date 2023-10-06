@@ -15,6 +15,44 @@ async function getListEntities(uri) {
     return t
 }
 
+function createCountPage(totalPages, bodyCountPages){
+    let i = 1
+    const countPagesForPartList = $('#'+bodyCountPages)
+    countPagesForPartList.empty()
+    while (i <= totalPages) {
+        countPagesForPartList.append("<li class='page-item'><a id='" + i + "'class='page-link' href='#'>" +
+            i +
+            "</a></li>")
+        pageNumberNow = i
+        i++;
+    }
+}
+
+function createTableParts(listParts, nameColumns , bodyTable){
+    $.each(nameColumns, function (i, v) {
+        $('#' + bodyTable + '-thad').append(
+            "<th scope='col'>" + v + "</th>"
+        )
+    })
+    $.each(listParts, function (index, value) {
+        $('#' + bodyTable + '-body').append(
+            "<tr>" +
+            "<th scope='row'>" +
+            "<input class='form-check-input' type='radio' name='partRadio' id='partRadio' value=" + index + ">" +
+            "</th>" +
+            "<td>" + value.identNumber + "</td>" +
+            "<td>" + value.name + "</td>" +
+            "</tr>"
+        )
+    })
+
+}
+
+function clearPartsTable(bodyTable){
+    $('#' + bodyTable + '-thad').empty()
+    $('#' + bodyTable + '-body').empty()
+}
+
 function createMachineTableForUser(bodyTable, machineList) {
     $('#' + bodyTable).empty()
     $.each(machineList, function (index, value) {
