@@ -104,19 +104,19 @@ $(document).ready(async function () {
         })
     })
 
-    $('#close-newAct-addEngineer').click(function () {
-        clearArr()
-
-    })
+    // $('#close-newAct-addEngineer').click(function () {
+    //     clearArr()
+    //
+    // })
 
     $('#button-addEngineer-newAct').click(function () {
         $('#engineers-newAct-List').empty()
     })
 
 
-    $('#reset-button-addEngineer-newAct').click(function () {
-        clearArr()
-    })
+    // $('#reset-button-addEngineer-newAct').click(function () {
+    //     clearArr()
+    // })
 
     $('#button-addEngineer-newAct-modal').click(function () {
         $('#addServiceEngineer-newAct').empty()
