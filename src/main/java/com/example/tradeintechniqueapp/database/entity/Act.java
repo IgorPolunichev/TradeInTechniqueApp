@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,12 +33,15 @@ public class Act implements BaseEntity<Long> {
 
     private String number;
     private String numberApplication;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Machine machine;
+
     String car;
     String licensePlate;
     String placeOfWork;
     String actDescription;
+
     @Enumerated(EnumType.STRING)
     ActPay actPay;
 
@@ -45,6 +49,9 @@ public class Act implements BaseEntity<Long> {
     @OneToMany(mappedBy = "act", cascade = CascadeType.ALL)
     private List<ActUser> actUserList = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "act",  cascade = CascadeType.ALL)
+    private List<ActParts> actParts = new ArrayList<>();
     public void setWorks(List<Work> works) {
         this.works = works;
         for (Work work : works) {
@@ -60,4 +67,5 @@ public class Act implements BaseEntity<Long> {
                ", number='" + number + '\'' +
                '}';
     }
+
 }

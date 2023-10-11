@@ -15,13 +15,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Part implements BaseEntity<Long>{
+public class Part implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String identNumber;
     private String name;
+
+    @Builder.Default
+    @OneToMany (mappedBy = "part")
+    private List<ActParts> actParts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -35,7 +39,6 @@ public class Part implements BaseEntity<Long>{
     public int hashCode() {
         return Objects.hash(identNumber);
     }
-
 
 
 }

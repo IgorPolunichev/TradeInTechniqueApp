@@ -3,6 +3,7 @@ package com.example.tradeintechniqueapp.database.entity;
 import com.example.tradeintechniqueapp.database.entity.audit.AuditingEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
@@ -29,9 +30,12 @@ public class User extends AuditingEntity<Long> {
     private LocalDate birthDate;
     private String password;
     private Integer counterActs;
+
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<ActUser> actUserList = new ArrayList<>();
+
+
     @Enumerated(EnumType.STRING)
     private Position position;
 

@@ -1,4 +1,4 @@
-const arr = [];
+let arr = [];
 let dataEngineers;
 let machines;
 let checkedMachine;
@@ -266,14 +266,17 @@ $(document).ready(async function () {
             let t = $('#partsTableForUsers-body input[name = "partRadio"]:checked').val()
             if (t !== undefined) {
                 let part = listParts.content.at(t)
-                listPartForAct.push(part)
-                console.log(t)
-                console.log(part)
+                let index = listPartForAct.push(part)
                 $('#partsList-newAct').append(
                     "<tr id=" + part.id + ">" +
                     // "<th scope='row'>" +
                     // "<input class='form-check-input' type='radio' name='partRadio' id='partRadio' value=" + index + ">" +
                     // "</th>" +
+                    "<td>" +
+                    "<button onclick='deletePart(" + index + ")' type='button' class= 'btn btn-primary'>" +
+                    "<i class='bi bi-x-circle-fill'></i>" +
+                    "</button>" +
+                    "</td>" +
                     "<td>" + part.identNumber + "</td>" +
                     "<td>" + part.name + "</td>" +
                     "<td><input type='number' class='form-control'></td>" +
@@ -288,9 +291,7 @@ $(document).ready(async function () {
                 )
                 clearPartsTable("partsTableForUsers")
             }
-
         })
-
     })
 
     $('#addParts-newAct').click(function () {
@@ -449,10 +450,10 @@ $(document).ready(async function () {
         $.each(arr, function (i, v) {
             if (v !== undefined) {
                 checkedEngineers.push(v)
+                arr = [];
             }
         })
-        let parts = await getPartsList()
-        console.log(parts)
+        let parts = await getPartsList(listPartForAct)
         let data = {
             date: $('#date').val()
             , number: numberAct.val()
@@ -465,6 +466,7 @@ $(document).ready(async function () {
             , placeOfWork: $('#placeOfWork').val()
             , actPay: getPayAct()
             , actDescription: descriptionOfAct.val()
+            , parts: parts
         };
         if (await validateAct(data)) {
             let response = await fetch('http://localhost:8080/api/v5/acts', {
@@ -485,6 +487,7 @@ $(document).ready(async function () {
                 )
 
             }
+            checkedEngineers = [];
 
         }
     })
@@ -498,16 +501,32 @@ $(document).ready(async function () {
 
 });
 
-async function getPartsList() {
-    let test = $('#partsList-newAct tr').each(function (k) {
+function deletePart(partIndex) {
+    let idTr = listPartForAct.at(partIndex - 1).id
+    listPartForAct.splice(partIndex - 1, 1)
+    $("#partsList-newAct tr[id =" + idTr + "]").remove()
+}
+
+async function getPartsList(listPartForAct) {
+    let list = [];
+    $('#partsList-newAct tr').each(function (k) {
         let t = $(this).attr('id')
-        console.log($(this).attr('id'))
-        console.log($('#' + t + ' input').val())
-        console.log($('#' + t + ' option:selected').val())
+        listPartForAct.forEach(function (i, v) {
+            if (i.id === +t) {
+                let data = {
+                    id: +t
+                    , identNumber: i.identNumber
+                    , name: i.name
+                    , count: +$('#' + t + ' input').val()
+                    , owner: $('#' + t + ' option:selected').val()
+                }
+                list.push(data)
+            }
+        })
 
     })
 
-    return listPartForAct;
+    return list;
 }
 
 async function validateAct(act) {

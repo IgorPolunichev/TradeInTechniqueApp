@@ -1,10 +1,13 @@
 package com.example.tradeintechniqueapp.mapper.actMappers;
 
 import com.example.tradeintechniqueapp.database.entity.Act;
+import com.example.tradeintechniqueapp.database.entity.ActParts;
 import com.example.tradeintechniqueapp.database.entity.ActUser;
 import com.example.tradeintechniqueapp.database.entity.Machine;
 import com.example.tradeintechniqueapp.database.repository.machineRepo.MachineRepository;
+import com.example.tradeintechniqueapp.database.repository.partRepo.PartRepository;
 import com.example.tradeintechniqueapp.database.repository.userRepo.UserRepository;
+import com.example.tradeintechniqueapp.dto.PartsDto.PartReadDto;
 import com.example.tradeintechniqueapp.dto.actsDto.ActCreateEditDto;
 import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import com.example.tradeintechniqueapp.mapper.Mapper;
@@ -19,6 +22,7 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
 
     private final MachineRepository machineRepository;
     private final UserRepository userRepository;
+    private final PartRepository partRepository;
 
     @Override
     public Act map(ActCreateEditDto object) {
@@ -57,10 +61,13 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
             actUser.setAct(toObject);
         }
 
-
-
-
-
+        for (PartReadDto part : fromObject.getParts()){
+            ActParts actParts = new ActParts();
+            actParts.setPart(partRepository.findById(part.getId()).get());
+            actParts.setAct(toObject);
+            actParts.setCount(part.getCount());
+            actParts.setOwner(part.getOwner());
+        }
     }
 
 
