@@ -25,7 +25,7 @@ spring:
         hbm2ddl:
           auto: validate
     open-in-view: true
-#        dialect: org.hibernate.dialect.MySQLDialect
+  #        dialect: org.hibernate.dialect.MySQLDialect
   servlet:
     multipart:
       max-file-size: 10000000
@@ -39,4 +39,6 @@ logging:
 app:
   partsList:
     bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp\partList
+  actFiles:
+    bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp
 

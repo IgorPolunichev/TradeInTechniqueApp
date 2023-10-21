@@ -2,6 +2,7 @@ package com.example.tradeintechniqueapp.database.repository.actRepo;
 
 import com.example.tradeintechniqueapp.database.entity.Act;
 import com.example.tradeintechniqueapp.database.entity.Work;
+import com.example.tradeintechniqueapp.dto.actsDto.ActFrontPageDto;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,5 @@ public interface ActRepository extends JpaRepository<Act, Long> {
     @EntityGraph (value = "load-act")
     @Query("select w from Work w INNER join ActUser au ON au.act.id = w.act.id where au.user.id = :id and w.workDate = :date")
     Optional<List<Work>> checkWork(Long id, LocalDate date);
+
 }

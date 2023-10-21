@@ -23,7 +23,10 @@ databaseChangeLog:
       file: db/changelog/db.changelog-2.9.sql
   - include:
       file: db/changelog/db.changelog-2.10.sql
-
+  - include:
+      file: db/changelog/db.changelog-2.11.sql
+  - include:
+      file: db/changelog/db.changelog-2.12.sql
 
 
 

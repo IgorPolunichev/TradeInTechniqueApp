@@ -1,11 +1,11 @@
 
 const uriNewAct = '/user/newAct';
-const uriListUsers = '/users';
+const uriListActs = '/user/listActs';
 const uriListCompanies = '/users/listCompanies';
 const uriListParts = '/users/listParts' ;
 $(document).ready(function (){
     $('#getNewAct').attr('href', uriNewAct)
-    // $('#getListUsers').attr('href', uriListUsers)
+    $('#getListActs').attr('href', uriListActs)
     // $('#getListCompanies').attr('href', uriListCompanies)
     // $('#getListParts').attr('href',uriListParts)
 })

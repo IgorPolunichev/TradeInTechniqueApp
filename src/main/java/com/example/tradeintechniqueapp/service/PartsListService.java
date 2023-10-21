@@ -1,11 +1,8 @@
 package com.example.tradeintechniqueapp.service;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -18,6 +15,8 @@ import java.nio.file.StandardOpenOption;
 public class PartsListService {
     @Value("${app.partsList.bucket}")
     private final String bucket = new String();
+
+    private final String bucket2 = new String();
 
     @SneakyThrows
     public Path upload(String partListPath, InputStream content) {

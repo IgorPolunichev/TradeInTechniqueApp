@@ -18,13 +18,13 @@ public class UsersController {
     public String findAllMachines() {
         return "forAllUsers/newAct";
     }
-    @GetMapping("/listCompanies")
-    public String findAllCompanies() {
-        return "user/companies";
-    }
-    @GetMapping("/listParts")
+//    @GetMapping("/listCompanies")
+//    public String findAllCompanies() {
+//        return "user/companies";
+//    }
+    @GetMapping("/listActs")
     public String findAllParts() {
-        return "user/parts";
+        return "forAllUsers/allActs";
     }
 
     @GetMapping()

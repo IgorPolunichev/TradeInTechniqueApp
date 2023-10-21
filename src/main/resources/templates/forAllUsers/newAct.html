@@ -21,7 +21,7 @@
                 <div th:insert="~{componentForUserForm/newActAddWorks::newActAddWorks}"></div>
             </div>
             <div class="row px-2">
-                <table class='table table-bordered border-primary'>
+                <table class='table-sm table-bordered border-primary'>
                     <thead>
                     <tr>
                         <th scope="col">День</th>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="row py-2 px-2">
-                <table class='table table-bordered border-primary' id="partsTable-newAct">
+                <table class='table-sm table-bordered border-primary' id="partsTable-newAct">
                     <thead>
                     <tr>
                         <th scope="col" style="width: 3%">#</th>
@@ -66,13 +66,14 @@
 
     <div th:insert="~{componentForUserForm/newActEditWorks::newActEditWorks}"></div>
     <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-primary" id="save-newAct">Сохранить акт
-<!--                    data-bs-toggle="modal"-->
-<!--                    data-bs-target="#exceptionValidate-NewAct"-->
-
+        <div class="col-1">
+            <button type="button" class="btn btn-primary btn-sm" id="save-newAct">Сохранить акт
             </button>
         </div>
+            <div class="col-1">
+                <div th:insert="~{componentForUserForm/newActAddFile::newActAddFile}"></div>
+            </div>
+
     </div>
 </div>
 
@@ -89,8 +90,9 @@
                 <div class="row" th:name="exceptionValidate-bodyModal-NewAct"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" name="exceptionValidate-close-NewAct">Закрыть</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" name="exceptionValidate-close-NewAct">Закрыть</button>
             </div>
+
         </div>
     </div>
 </div>

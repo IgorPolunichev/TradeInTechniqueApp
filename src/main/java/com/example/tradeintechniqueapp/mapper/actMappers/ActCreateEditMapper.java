@@ -14,7 +14,12 @@ import com.example.tradeintechniqueapp.mapper.Mapper;
 import com.example.tradeintechniqueapp.mapper.machineMappers.MachineReadMapper;
 import com.example.tradeintechniqueapp.mapper.userMappers.UserCreateEditMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +28,9 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
     private final MachineRepository machineRepository;
     private final UserRepository userRepository;
     private final PartRepository partRepository;
+    
+    @Value(value = "${app.actFiles.bucket}")
+    private final String bucket = new String();
 
     @Override
     public Act map(ActCreateEditDto object) {
@@ -47,6 +55,7 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
         toObject.setPlaceOfWork(fromObject.getPlaceOfWork());
         toObject.setActPay(fromObject.getActPay());
         toObject.setActDescription(fromObject.getActDescription());
+        toObject.setPathFiles(createDir(fromObject));
 
         machineRepository.findBySerialNumber(fromObject.getMachine().getSerialNumber())
                 .ifPresent(machine-> {
@@ -68,6 +77,16 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
             actParts.setCount(part.getCount());
             actParts.setOwner(part.getOwner());
         }
+    }
+
+    @SneakyThrows
+    private String createDir(ActCreateEditDto save) {
+        StringBuilder path = new StringBuilder();
+        path.append(String.format("/%s", save.getDate().getYear()));
+        path.append(String.format("/%s", save.getDate().getMonth().getValue()));
+        path.append(String.format("/%s", save.getNumber().substring(0, 3)));
+        path.append(String.format("/%s", save.getNumber()));
+        return Files.createDirectories(Path.of(bucket, path.toString())).toString();
     }
 
 

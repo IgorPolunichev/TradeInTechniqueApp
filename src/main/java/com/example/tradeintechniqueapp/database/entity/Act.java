@@ -22,15 +22,14 @@ public class Act implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDate date;
+
     @Builder.Default
 //    @ElementCollection
 //    @CollectionTable(name = "act_works")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "act_id")
     private List<Work> works = new ArrayList<>();
-
     private String number;
     private String numberApplication;
 
@@ -41,6 +40,7 @@ public class Act implements BaseEntity<Long> {
     String licensePlate;
     String placeOfWork;
     String actDescription;
+    String pathFiles;
 
     @Enumerated(EnumType.STRING)
     ActPay actPay;
@@ -52,6 +52,8 @@ public class Act implements BaseEntity<Long> {
     @Builder.Default
     @OneToMany(mappedBy = "act",  cascade = CascadeType.ALL)
     private List<ActParts> actParts = new ArrayList<>();
+
+
     public void setWorks(List<Work> works) {
         this.works = works;
         for (Work work : works) {

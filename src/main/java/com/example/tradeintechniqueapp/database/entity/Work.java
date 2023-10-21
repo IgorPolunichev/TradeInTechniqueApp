@@ -39,6 +39,7 @@ public class Work {
 
     private Integer mileage;
     private String workDescription;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "act_id")
     private Act act;

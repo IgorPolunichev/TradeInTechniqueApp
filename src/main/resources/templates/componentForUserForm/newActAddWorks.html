@@ -6,13 +6,13 @@
 </head>
 <body>
 <div th:fragment="newActAddWorks">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWorksModal">
+    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addWorksModal">
         Добавить работу
     </button>
 
     <!-- Модальное окно -->
     <div class="modal fade" id="addWorksModal" tabindex="-1" aria-labelledby="addWorksModalLabel"
-         aria-hidden="false">
+         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,11 +86,11 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"
                                 id="close-addWorkModal-newAct">Закрыть
                         </button>
                         <form class="was-validated">
-                            <button type="button" class="btn btn-primary" id="save-addWorksModal-newAct" data-bs-dismiss="modal" disabled>Сохранить изменения
+                            <button type="button" class="btn btn-primary btn-sm" id="save-addWorksModal-newAct" disabled>Сохранить изменения
                             </button>
                         </form>
                     </div>

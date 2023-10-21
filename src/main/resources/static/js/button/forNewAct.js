@@ -12,7 +12,7 @@ const regText = /[а-яА-ЯA-Za-z]/;
 let editWorkIndex;
 let descriptionOfAct = $('#descriptionOfAct')
 let authUserId;
-let listPartForAct = [];
+let listPartForAct = new Map;
 
 const exceptionValidateActModalBody = $('#exceptionValidate-NewAct div[name = "exceptionValidate-bodyModal-NewAct"]')
 const exceptionValidateActModal = $('#exceptionValidate-NewAct')
@@ -182,6 +182,7 @@ $(document).ready(async function () {
         $('#serialNumber-newAct').text('')
         $('#type-newAct').text('')
         $('#yearOfRelease-newAct').text('')
+        $('#operatingTime-newAct').attr('placeholder', '')
         $('#nameCompany-newAct').text('')
         $('#inn-newAct').text('')
         $('#kpp-newAct').text('')
@@ -210,7 +211,7 @@ $(document).ready(async function () {
 
     $('#addWorksModal textarea[name="descriptionOfWorks"]').change(function () {
         validateAddWorkModal("descriptionOfWorks"
-            , $('#addWorksModal textarea[name="descriptionOfWorks"]').val() === '' ? undefined : "descriptionOfWorks"
+            , !regText.test($('#addWorksModal textarea[name="descriptionOfWorks"]').val()) ? undefined : "descriptionOfWorks"
             , "addWorks")
     })
 
@@ -266,22 +267,22 @@ $(document).ready(async function () {
             let t = $('#partsTableForUsers-body input[name = "partRadio"]:checked').val()
             if (t !== undefined) {
                 let part = listParts.content.at(t)
-                let index = listPartForAct.push(part)
+                listPartForAct.set(part.id, part)
                 $('#partsList-newAct').append(
                     "<tr id=" + part.id + ">" +
                     // "<th scope='row'>" +
                     // "<input class='form-check-input' type='radio' name='partRadio' id='partRadio' value=" + index + ">" +
                     // "</th>" +
                     "<td>" +
-                    "<button onclick='deletePart(" + index + ")' type='button' class= 'btn btn-primary'>" +
+                    "<button onclick='deletePart(" + part.id + ")' type='button' class= 'btn btn-primary btn-sm'>" +
                     "<i class='bi bi-x-circle-fill'></i>" +
                     "</button>" +
                     "</td>" +
                     "<td>" + part.identNumber + "</td>" +
                     "<td>" + part.name + "</td>" +
-                    "<td><input type='number' class='form-control'></td>" +
+                    "<td><input type='number' class='form-control form-control-sm'></td>" +
                     "<td>" +
-                    "<select class='form-select'>" +
+                    "<select class='form-select form-select-sm'>" +
                     "  <option selected  value='L'>Либхерр</option>" +
                     "  <option value='K'>Клиент</option>" +
                     "  <option value='T'>TnT</option>" +
@@ -302,6 +303,7 @@ $(document).ready(async function () {
 
 
     $('#save-addWorksModal-newAct').click(async function () {
+
         if (regTime.test(timeLunchFrom.val())) {
             if (await addWork(
                 dateWork.val()
@@ -317,7 +319,7 @@ $(document).ready(async function () {
                 createWorkRow(listWorks)
                 clearAddWorkModal()
                 resetValidateModals(exceptionAddWorkModal, "addWorks")
-                // $('#addWorksModal').modal('hide')
+                $('#close-addWorkModal-top-newAct').click()
             }
 
         } else {
@@ -335,8 +337,7 @@ $(document).ready(async function () {
                 createWorkRow(listWorks)
                 clearAddWorkModal()
                 resetValidateModals(exceptionAddWorkModal, "addWorks")
-                // $('#addWorksModal').hide()
-
+                $('#close-addWorkModal-top-newAct').click()
             }
         }
     })
@@ -397,11 +398,10 @@ $(document).ready(async function () {
     })
 
     editWorksDescription.blur(function () {
-
         if (regText.test(editWorksDescription.val())) {
-            validateAddWorkModal("description", "description", "editWorks")
+            validateAddWorkModal("descriptionOfWorks", "descriptionOfWorks", "editWorks")
         } else {
-            validateAddWorkModal("description", undefined, "editWorks")
+            validateAddWorkModal("descriptionOfWorks", undefined, "editWorks")
             editWorksDescription.prop('required', true)
         }
     })
@@ -415,9 +415,8 @@ $(document).ready(async function () {
         }
     })
 
-    $('#editWorksModal button[id = "save-editWorksModal-newAct"]').click(async function () {
+    $('#save-editWorksModal-newAct').click(async function () {
         let work = listWorks[editWorkIndex]
-
         if (regTime.test(editWorkTimeLunchFrom.val())) {
             work.workDate = editWorkDate.val()
             work.startWork = editWorkTimeFrom.val()
@@ -441,6 +440,7 @@ $(document).ready(async function () {
             work.workDescription = editWorksDescription.val()
 
         }
+        console.log(listWorks)
         createWorkRow(listWorks)
         resetValidateModals(exceptionAddWorkModal, "editWorks")
     })
@@ -469,6 +469,7 @@ $(document).ready(async function () {
             , parts: parts
         };
         if (await validateAct(data)) {
+            console.log("send request")
             let response = await fetch('http://localhost:8080/api/v5/acts', {
                 method: 'POST'
                 , headers: {
@@ -501,31 +502,35 @@ $(document).ready(async function () {
 
 });
 
-function deletePart(partIndex) {
-    let idTr = listPartForAct.at(partIndex - 1).id
-    listPartForAct.splice(partIndex - 1, 1)
-    $("#partsList-newAct tr[id =" + idTr + "]").remove()
+function deletePart(partId) {
+    // let idTr = listPartForAct.at(partIndex - 1).id
+    // listPartForAct.splice(partIndex - 1, 1)
+    listPartForAct.delete(partId)
+    $("#partsList-newAct tr[id =" + partId + "]").remove()
 }
 
 async function getPartsList(listPartForAct) {
     let list = [];
-    $('#partsList-newAct tr').each(function (k) {
+    listPartForAct.values()
+    $('#partsList-newAct tr').each(function () {
         let t = $(this).attr('id')
-        listPartForAct.forEach(function (i, v) {
-            if (i.id === +t) {
-                let data = {
-                    id: +t
-                    , identNumber: i.identNumber
-                    , name: i.name
-                    , count: +$('#' + t + ' input').val()
-                    , owner: $('#' + t + ' option:selected').val()
-                }
-                list.push(data)
+        listPartForAct.forEach(function (k, v) {
+            console.log(k)
+            console.log(v)
+            if (v === +t) {
+                console.log("true")
+                // let data = {
+                //     id: +t
+                //     , identNumber: i.identNumber
+                //     , name: i.name
+                //     , count: +$('#' + t + ' input').val()
+                //     , owner: $('#' + t + ' option:selected').val()
+                // }
+                list.push(k)
             }
         })
 
     })
-
     return list;
 }
 
@@ -631,9 +636,11 @@ async function addWork(date, timeFrom, timeTo, timeLunchFrom, timeLunchTo, route
 }
 
 async function checkWork(work) {
+    let result;
     if (listWorks.length > 0) {
-        let result;
+        console.log("list works more 0")
         listWorks.forEach(function (v) {
+            console.log(v)
             let timeStartInListWorks = new Date(v.workDate + "T" + v.startWork).getTime()
             let timeEndInListWorks = new Date(v.workDate + "T" + v.endWork).getTime()
             let timeStartCurrent = new Date(work.workDate + "T" + work.startWork).getTime()
@@ -647,17 +654,20 @@ async function checkWork(work) {
                     "</p>"
                 )
                 result = false;
+                return false;
             } else {
                 result = true;
             }
         })
-        return result ? checkWorkInDb(work) : result;
+        result ? await checkWorkInDb(work) : result;
     } else {
-        return checkWorkInDb(work);
+        result = await checkWorkInDb(work);
     }
+    return result;
 }
 
 async function checkWorkInDb(work) {
+    let bool;
     let t = await fetch('http://localhost:8080/api/v5/acts/checkWorks?id=' + authUserId, {
         method: 'POST'
         , headers: {
@@ -681,10 +691,11 @@ async function checkWorkInDb(work) {
                 )
             })
         })
-        return false;
+        bool = false;
     } else {
-        return true;
+        bool = true;
     }
+    return bool;
 
 }
 

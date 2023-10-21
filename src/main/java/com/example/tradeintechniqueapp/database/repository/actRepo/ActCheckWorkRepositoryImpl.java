@@ -26,7 +26,7 @@ public class ActCheckWorkRepositoryImpl implements ActCheckWorkRepository {
         Root<ActUser> actUserRoot = query.from(ActUser.class);
         Join<Work, ActUser> actUserWorkJoin = actUserRoot.join("act", JoinType.INNER);
         List<Predicate> predicates = new ArrayList<>();
-        Predicate userIdd = criteriaBuilder.equal(actUserRoot.get("user"), 9);
+        Predicate userIdd = criteriaBuilder.equal(actUserRoot.get("user"), userId);
         Predicate date = criteriaBuilder.equal(workRoot.get("workDate"), work.getWorkDate());
 
         Predicate timeStart = criteriaBuilder
