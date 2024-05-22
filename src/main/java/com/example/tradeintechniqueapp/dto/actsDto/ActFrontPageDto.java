@@ -14,8 +14,7 @@ hhhh
 @Value
 public class ActFrontPageDto {
 /*
-*
-*
+*HHHH
 *
 * */
 
