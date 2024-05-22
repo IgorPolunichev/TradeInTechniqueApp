@@ -10,9 +10,14 @@ jj
 jjjj
 hhhh
  * */
+
 @Value
 public class ActFrontPageDto {
-
+/*
+*
+*
+*
+* */
 
     Long id;
     LocalDate date;
