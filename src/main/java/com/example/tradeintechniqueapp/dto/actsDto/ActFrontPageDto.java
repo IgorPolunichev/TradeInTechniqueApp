@@ -6,7 +6,6 @@ import java.time.LocalDate;
 /* Добавление многострочного комментария.
 *1
 *2
-*3
 * */
 
 @Value
