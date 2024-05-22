@@ -26,11 +26,14 @@ import java.util.Optional;
 public class UsersRestController {
 
     private final UserService userService;
+
+
     @GetMapping(value = "/roles")
     public List<Role> getRole() {
         return List.of(Role.values());
 
     }
+
     @GetMapping(value = "/users")
     public Page<UserReadDtoForAdmin> getUsers(@PageableDefault(size = 20) Pageable pageable) {
         return userService.findAll(pageable);

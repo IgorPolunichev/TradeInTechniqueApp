@@ -40,5 +40,5 @@ app:
   partsList:
     bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp\partList
   actFiles:
-    bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp\Acts
+    bucket: C:\Users\LRUNB\IdeaProjects\TradeInTechniqueApp
 

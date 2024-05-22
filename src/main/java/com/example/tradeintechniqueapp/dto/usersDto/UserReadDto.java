@@ -19,4 +19,6 @@ public class UserReadDto {
     Role role;
     Position position;
     Integer counterActs;
+
+
 }

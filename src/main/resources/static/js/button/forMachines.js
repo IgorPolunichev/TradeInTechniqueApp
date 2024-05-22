@@ -150,7 +150,7 @@ function createMachineTable(allMachines) {
             "<td>" + value.subtype + "</td>" +
             "<td>" + value.operatingTime + "</td>" +
             "<td>" + value.yearOfRelease + "</td>" +
-            "<td>" + value.company.nameCompany + "</td>" +
+            "<td>" + value.companyName + "</td>" +
             "<td>" +
             "<button onclick='editMachine(" + value.id + ")' type='button' class='btn btn-success' data-bs-target='#editMachine'>Edit</button>" +
             "</td>" +
@@ -167,14 +167,14 @@ function editMachine(id) {
         if (value.id === id) {
             machineIdForUpdate = id
             company = value.companyId
-            console.log(value)
+            console.log(company)
 
             $('#editMachine-operatingTime').val(value.operatingTime)
             $('#editMachine-serialNumber').val(value.serialNumber)
             $('#editMachine-subtype').val(value.subtype)
             $('#editMachine-type').val(value.type)
             $('#editMachine-yearOfRelease').val(value.yearOfRelease)
-            $('#editMachine-machineOwner').val(value.company.nameCompany)
+            $('#editMachine-machineOwner').val(value.companyName)
         }
     })
 

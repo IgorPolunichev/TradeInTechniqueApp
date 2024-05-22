@@ -18,7 +18,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "acts")
-@Cacheable
 public class Act implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

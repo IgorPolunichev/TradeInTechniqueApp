@@ -3,6 +3,10 @@ package com.example.tradeintechniqueapp.dto.companiesDto;
 import com.example.tradeintechniqueapp.database.entity.LocationCompany;
 import lombok.Value;
 
+/*
+* 1
+* */
+
 @Value
 public class CompanyCreateEditDto {
     Long id;
