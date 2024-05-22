@@ -1,5 +1,6 @@
 package com.example.tradeintechniqueapp.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,9 @@ public class Work {
     private LocalDate workDate;
     private LocalTime startWork;
     private LocalTime endWork;
+
     private LocalTime startLunch;
+
     private LocalTime endLunch;
 
     private String placeOfDeparture;
@@ -41,18 +44,17 @@ public class Work {
     @JoinColumn(name = "act_id")
     private Act act;
 
-    public void setAct(Act act) {
-        this.act = act;
-
-    }
+//    public void setAct(Act act){
+//        this.act = act;
+//
+//    }
 
     @Override
     public String toString() {
-
         return "Work{" +
-               "workDate=" + workDate.toString() +
-               ", startWork=" + startWork.toString() +
-               ", endWork=" + endWork.toString() +
+               "workDate=" + workDate +
+               ", startWork=" + startWork +
+               ", endWork=" + endWork +
                ", workDescription='" + workDescription + '\'' +
                '}';
     }

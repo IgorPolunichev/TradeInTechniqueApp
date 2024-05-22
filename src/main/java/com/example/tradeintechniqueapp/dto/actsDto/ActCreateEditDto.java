@@ -9,7 +9,6 @@ import com.example.tradeintechniqueapp.dto.PartsDto.PartReadDto;
 import com.example.tradeintechniqueapp.dto.machinesDto.MachineReadDto;
 import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import lombok.Value;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.List;
 @Value
 //@FieldNameConstants
 public class ActCreateEditDto {
-
     Long id;
     LocalDate date;
     List<Work> works;

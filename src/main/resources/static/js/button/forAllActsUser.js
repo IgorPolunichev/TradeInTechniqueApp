@@ -1,6 +1,5 @@
 $(document).ready(async function () {
     createActsTable(await getActList())
-
 });
 
 async function deleteAct(actId) {
@@ -27,7 +26,7 @@ function createActsTable(listAct) {
             "<td>" + v.actDescription + "</td>" +
             "<td>" +
             "<button onclick=deleteAct(" + v.id + ") type='button' class='btn btn-danger btn-sm' style='margin-right:3px'>Удалить</button>" +
-            "<button onclick=updateAct(" + v.id + ") type='button' class='btn btn-success btn-sm' style='margin-right:3px'>Редактировать</button>" +
+            "<button type='button' class='btn btn-success btn-sm' style='margin-right:3px'>Редактировать</button>" +
             "<button type='button' class='btn btn-secondary btn-sm'>Закрыть</button>" +
             "</td>" +
             "</tr>"
@@ -35,10 +34,7 @@ function createActsTable(listAct) {
     })
 }
 
-async function getActList() {
+async function getActList(){
     let listAct = (await getListEntities('/api/v5/acts'))
     return listAct;
-}
-async function updateAct(id){
-    window.location.href = "/act/editAct/"+ id
 }

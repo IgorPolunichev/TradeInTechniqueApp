@@ -1,13 +1,22 @@
 package com.example.tradeintechniqueapp.dto.actsDto;
-import lombok.Value;
-import java.time.LocalDate;
 
+import com.example.tradeintechniqueapp.database.entity.Work;
+import com.example.tradeintechniqueapp.database.entity.audit.ActPay;
+import com.example.tradeintechniqueapp.dto.machinesDto.MachineReadDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
+import lombok.Value;
+
+import java.time.LocalDate;
+import java.util.List;
+
+
+/* Добавление многострочного комментария.
+*
+*
+* */
 @Value
 public class ActFrontPageDto {
-    /*
-    * А мы добавили вот тут
-    * И вот тут
-    * */
+
 
     Long id;
     LocalDate date;

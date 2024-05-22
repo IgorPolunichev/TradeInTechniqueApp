@@ -8,18 +8,14 @@ import com.example.tradeintechniqueapp.database.repository.actRepo.ActUserReposi
 import com.example.tradeintechniqueapp.database.repository.userRepo.UserRepository;
 import com.example.tradeintechniqueapp.dto.actsDto.ActCreateEditDto;
 import com.example.tradeintechniqueapp.dto.actsDto.ActFrontPageDto;
-import com.example.tradeintechniqueapp.dto.actsDto.ActReadDto;
 import com.example.tradeintechniqueapp.dto.usersDto.CustomUserDetails;
 import com.example.tradeintechniqueapp.dto.workReadDto.WorkCheckDto;
 import com.example.tradeintechniqueapp.mapper.actMappers.ActCreateEditMapper;
 import com.example.tradeintechniqueapp.mapper.actMappers.ActFrontPageMapper;
-import com.example.tradeintechniqueapp.mapper.actMappers.ActReadMapper;
 import com.example.tradeintechniqueapp.mapper.userMappers.UserReadMapper;
 import com.example.tradeintechniqueapp.mapper.workMapper.WorkCheckMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.hibernate.service.spi.InjectService;
-import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -36,36 +32,30 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ActService {
-    
+
     private final ActRepository actRepository;
     private final ActUserRepository actUserRepository;
     private final ActCheckWorkRepository actCheckWork;
     private final ActCreateEditMapper actCreateEditMapper;
     private final ActFrontPageMapper actFrontPageMapper;
-    private final ActReadMapper actReadMapper;
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final WorkCheckMapper workCheckMapper;
-    public final FileService fileService;
 
 
 
 
     @Transactional
-    public ActReadDto create(ActCreateEditDto act) {
+    public Act create(ActCreateEditDto act) {
         CustomUserDetails u = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userRepository.findById(u.getId()).ifPresent(e -> {
             e.setCounterActs(e.getCounterActs() + 1);
             act.getUsers().add(userReadMapper.map(e));
 
         });
-        return Optional.of(act)
-                .map(actCreateEditMapper::map)
-                .map(actRepository::save)
-                .map(actReadMapper::map)
-                .orElseThrow();
+        return  actRepository.save(actCreateEditMapper.map(act));
     }
-@Lookup
+
     public Optional<List<ActFrontPageDto>> getActs() {
         Long authUser = getAuthUser().getId();
         Optional<List<ActFrontPageDto>> actFrontPageDtos = actUserRepository.findActUserByUser_Id(authUser)
@@ -92,18 +82,17 @@ public class ActService {
         return actRepository.findById(id)
                 .map(entity -> {
                     actRepository.delete(entity);
-                    fileService.deleteDir(entity.getPathFiles());
                     return true;
                 }).orElse(false);
     }
 
+    public boolean uploadFile(MultipartFile file) {
+        return false;
+    }
 
     private CustomUserDetails getAuthUser() {
         return (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 
-    public Optional<ActReadDto> getActById(Long id) {
-        return actRepository.findById(id).map(actReadMapper::map);
-    }
 }
