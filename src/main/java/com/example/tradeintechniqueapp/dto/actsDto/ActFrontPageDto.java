@@ -1,5 +1,11 @@
 package com.example.tradeintechniqueapp.dto.actsDto;
+
+import com.example.tradeintechniqueapp.database.entity.Work;
+import com.example.tradeintechniqueapp.database.entity.audit.ActPay;
+import com.example.tradeintechniqueapp.dto.machinesDto.MachineReadDto;
+import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import lombok.Value;
+
 import java.time.LocalDate;
 
 
@@ -10,10 +16,6 @@ import java.time.LocalDate;
 
 @Value
 public class ActFrontPageDto {
-/*
-*HHHH
-* */
-
     Long id;
     LocalDate date;
     String number;

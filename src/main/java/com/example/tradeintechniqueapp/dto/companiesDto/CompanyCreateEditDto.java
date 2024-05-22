@@ -13,6 +13,10 @@ import lombok.Value;
 
 @Value
 public class CompanyCreateEditDto {
+    /*
+    * 1
+    * 2
+    * */
     Long id;
 
     String nameCompany;
