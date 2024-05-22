@@ -6,6 +6,8 @@ import java.time.LocalDate;
 /* Добавление многострочного комментария.
 jj
 jj
+
+jjjj
  * */
 @Value
 public class ActFrontPageDto {
