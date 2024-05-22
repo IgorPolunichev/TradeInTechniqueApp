@@ -9,8 +9,17 @@ import lombok.Value;
 import java.time.LocalDate;
 import java.util.List;
 
+
+/* Добавление многострочного комментария.
+*Тестирование гит ветки
+*ЕЕееее
+*33ffff
+* ааа
+* */
 @Value
 public class ActFrontPageDto {
+
+
     Long id;
     LocalDate date;
     String number;

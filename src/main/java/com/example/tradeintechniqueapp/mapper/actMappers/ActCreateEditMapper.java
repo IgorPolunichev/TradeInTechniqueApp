@@ -82,11 +82,12 @@ public class ActCreateEditMapper implements Mapper<ActCreateEditDto, Act> {
     @SneakyThrows
     private String createDir(ActCreateEditDto save) {
         StringBuilder path = new StringBuilder();
-        path.append(String.format("/%s", save.getDate().getYear()));
-        path.append(String.format("/%s", save.getDate().getMonth().getValue()));
-        path.append(String.format("/%s", save.getNumber().substring(0, 3)));
-        path.append(String.format("/%s", save.getNumber()));
-        return Files.createDirectories(Path.of(bucket, path.toString())).toString();
+        path.append(String.format("\\%s", save.getDate().getYear()));
+        path.append(String.format("\\%s", save.getDate().getMonth().getValue()));
+        path.append(String.format("\\%s", save.getNumber().substring(0, 3)));
+        path.append(String.format("\\%s", save.getNumber()));
+        Files.createDirectories(Path.of(bucket, path.toString()));
+        return  path.toString();
     }
 
 
