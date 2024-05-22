@@ -4,8 +4,19 @@ import java.time.LocalDate;
 
 
 /* Добавление многострочного комментария.
+*
+*
+*
+*
  * */
 
+
+/*Второй многострочный комментарий
+*
+*
+*
+*
+* */
 @Value
 public class ActFrontPageDto {
 /*
