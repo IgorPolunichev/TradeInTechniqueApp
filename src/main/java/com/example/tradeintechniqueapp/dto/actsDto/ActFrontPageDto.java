@@ -13,6 +13,8 @@ import java.util.List;
 /* Добавление многострочного комментария.
 *Тестирование гит ветки
 *ЕЕееее
+*
+* ааа
 * */
 @Value
 public class ActFrontPageDto {
