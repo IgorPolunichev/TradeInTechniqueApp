@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 @Value
 public class ActFrontPageDto {
-
+    /*
+    * А мы добавили вот тут
+    * */
 
     Long id;
     LocalDate date;
