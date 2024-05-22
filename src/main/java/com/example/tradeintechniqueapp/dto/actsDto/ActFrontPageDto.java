@@ -1,26 +1,17 @@
 package com.example.tradeintechniqueapp.dto.actsDto;
-
-import com.example.tradeintechniqueapp.database.entity.Work;
-import com.example.tradeintechniqueapp.database.entity.audit.ActPay;
-import com.example.tradeintechniqueapp.dto.machinesDto.MachineReadDto;
-import com.example.tradeintechniqueapp.dto.usersDto.UserReadDto;
 import lombok.Value;
-
 import java.time.LocalDate;
-import java.util.List;
 
 
 /* Добавление многострочного комментария.
-*Тестирование гит ветки
-*ЕЕееее
-*33ffff
-* ааа
-*
-*
-*
-*
-*
-* */
+ *Тестирование гит ветки
+ *ЕЕееее
+ *33ffff
+ * ааа
+ *
+ *
+ *
+ * */
 @Value
 public class ActFrontPageDto {
 
