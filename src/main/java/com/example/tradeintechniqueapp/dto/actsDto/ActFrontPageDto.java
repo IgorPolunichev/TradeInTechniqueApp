@@ -20,7 +20,6 @@ public class ActFrontPageDto {
 /*
 *HHHH
 *
-*
 * */
 
     Long id;
