@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class ActFrontPageDto {
 /*
 *HHHH
-*
 * */
 
     Long id;
