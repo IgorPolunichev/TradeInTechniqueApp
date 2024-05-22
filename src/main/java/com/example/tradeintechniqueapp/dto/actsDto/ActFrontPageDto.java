@@ -10,13 +10,6 @@ import java.time.LocalDate;
 *
  * */
 
-
-/*Второй многострочный комментарий
-*
-*
-*
-*
-* */
 @Value
 public class ActFrontPageDto {
 /*
