@@ -54,7 +54,7 @@ dependencies {
     implementation group: 'org.webjars', name: 'jquery', version: '3.6.4'
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.get("springdoc")}"
     implementation "org.springframework.boot:spring-boot-devtools"
-    implementation "org.apache.poi:poi-ooxml:5.2.3"
+//    implementation "org.apache.poi:poi-ooxml:5.2.3"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation "org.springdoc:springdoc-openapi-security:1.7.0"
 
