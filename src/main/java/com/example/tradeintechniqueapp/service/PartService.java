@@ -31,7 +31,7 @@ public class PartService {
     private final PartRepository partRepository;
     private final PartCreateEditMapper partCreateEditMapper;
     private final PartDtoMapper partDtoMapper;
-    private final PartsListService partsListService;
+    private final FileService uploadFileService;
 
     public PartDto create(PartCreateEditDto part) {
         return Optional.of(part).
@@ -49,7 +49,7 @@ public class PartService {
 
     @SneakyThrows
     public boolean uploadPartsList(MultipartFile file) {
-        Path path = partsListService.upload(file.getOriginalFilename(), file.getInputStream());
+        Path path = uploadFileService.uploadPartList(file.getOriginalFilename(), file.getInputStream());
         FileInputStream inputStream = new FileInputStream(path.toString());
         Workbook workbook = new XSSFWorkbook(inputStream);
         Sheet sheetAt = workbook.getSheetAt(0);

@@ -7,8 +7,6 @@ import lombok.Value;
 public class LocalCompanyReadDto {
      String city;
      String street;
-
      String house;
-
      String zipCode;
 }
