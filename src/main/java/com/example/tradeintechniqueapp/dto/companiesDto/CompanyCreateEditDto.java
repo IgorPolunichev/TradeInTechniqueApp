@@ -9,6 +9,9 @@ import lombok.Value;
 
 @Value
 public class CompanyCreateEditDto {
+    /*
+    * 1
+    * */
     Long id;
 
     String nameCompany;
