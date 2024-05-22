@@ -3,6 +3,7 @@ import lombok.Value;
 import java.time.LocalDate;
 /*
 * Добавили строку
+* Добавили еще одну.
 * */
 @Value
 public class ActFrontPageDto {
