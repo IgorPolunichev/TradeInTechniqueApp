@@ -5,9 +5,14 @@ import java.time.LocalDate;
 
 /* Добавление многострочного комментария.
  * */
+
 @Value
 public class ActFrontPageDto {
-
+/*
+*
+*
+*
+* */
 
     Long id;
     LocalDate date;
