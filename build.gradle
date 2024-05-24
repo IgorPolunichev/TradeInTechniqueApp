@@ -27,7 +27,8 @@ configurations {
     }
 
 
-    querydsl.extendsFrom annotationProcessor, implementation, compileOnly
+        querydsl.extendsFrom annotationProcessor, implementation, compileOnly
+
 
 
 }
@@ -45,8 +46,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.3'
 
     implementation 'com.mysql:mysql-connector-j'
     implementation 'org.springframework.data:spring-data-envers'
@@ -54,9 +53,9 @@ dependencies {
     implementation group: 'org.webjars', name: 'jquery', version: '3.6.4'
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${versions.get("springdoc")}"
     implementation "org.springframework.boot:spring-boot-devtools"
-//    implementation "org.apache.poi:poi-ooxml:5.2.3"
+    implementation "org.apache.poi:poi-ooxml:5.2.3"
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    implementation "org.springdoc:springdoc-openapi-security:1.7.0"
+//    implementation "org.springdoc:springdoc-openapi-security:1.7.0"
 
 
 //    implementation 'com.querydsl:querydsl-core:5.0.0'

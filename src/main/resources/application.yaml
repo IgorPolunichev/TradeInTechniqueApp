@@ -13,7 +13,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/trade_in_technique
     username: root
-    password: LiEbheRR$6
+#    password: LiEbheRR$6
+    password: test
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
